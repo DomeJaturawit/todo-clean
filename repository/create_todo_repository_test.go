@@ -64,7 +64,7 @@ func (suite *TestCreateRepositoryTestSuite) Test_Happy() {
 
 	mockEntity := mockdata.CreateTodoEntityMockData()
 	suite.sqlMock.MatchExpectationsInOrder(true)
-	//TODO: uncomment line below
+
 	suite.sqlMock.ExpectBegin()
 
 	suite.sqlMock.ExpectExec(regexp.QuoteMeta(`INSERT INTO "`+common.TodoTable+`"`)).WithArgs(
@@ -74,8 +74,6 @@ func (suite *TestCreateRepositoryTestSuite) Test_Happy() {
 		mockEntity.Status,
 		mockEntity.CreatedAt,
 	).WillReturnResult(sqlmock.NewResult(1, 1))
-
-	//suite.sqlMock.ExpectCommit()
 
 	result, err := suite.repository.CreateTodoRepository(suite.mockGormDB.Begin(), mockEntity)
 

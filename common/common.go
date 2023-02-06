@@ -1,7 +1,7 @@
 package common
 
 const (
-	TodoTable        = "tb_todo"
+	TodoTable        = "todos"
 	TodoIDCol        = "uuid"
 	TodoTitleCol     = "title"
 	TodoStatusCol    = "status"
