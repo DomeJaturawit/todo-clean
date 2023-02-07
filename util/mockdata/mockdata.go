@@ -16,6 +16,7 @@ const (
 
 var (
 	RepositoryError = errors.New("RepositoryError")
+	UseCaseError    = errors.New("UseCaseError")
 )
 
 func genSeed() (seed int64) {
@@ -40,12 +41,32 @@ func NewStatus() string {
 	return status
 }
 
+// Repository
 func CreateTodoEntityMockData() domain.CreateTodoEntity {
 	return domain.CreateTodoEntity{
 		ID:          uuid.New(),
 		Title:       NewTitle(),
 		Description: NewDescription(),
 		Status:      NewStatus(),
+		CreatedAt:   time.Now(),
+	}
+}
+
+// UseCase
+func CreateTodoEntityRequestMockData() domain.CreateTodoEntityRequest {
+	return domain.CreateTodoEntityRequest{
+		Title:       NewTitle(),
+		Description: NewDescription(),
+		Status:      NewStatus(),
+	}
+}
+
+func CreateTodoUseCaseEntityMockData(input domain.CreateTodoEntityRequest) domain.CreateTodoEntity {
+	return domain.CreateTodoEntity{
+		ID:          uuid.New(),
+		Title:       input.Title,
+		Description: input.Description,
+		Status:      input.Status,
 		CreatedAt:   time.Now(),
 	}
 }

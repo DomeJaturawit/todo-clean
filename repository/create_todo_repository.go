@@ -8,7 +8,8 @@ import (
 	"todo-clean/repository/model"
 )
 
-func (repo *newRepository) CreateTodoRepository(db *gorm.DB, todo domain.CreateTodoEntity) (resp *domain.CreateTodoEntity, err error) {
+// TODO add input context
+func (repo *NewRepo) CreateTodoRepository(db *gorm.DB, todo domain.CreateTodoEntity) (resp *domain.CreateTodoEntity, err error) {
 
 	input := model.TbTodoRepositoryModel{
 		ID:          todo.ID,

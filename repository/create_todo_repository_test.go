@@ -8,7 +8,7 @@ import (
 	"testing"
 	"todo-clean/common"
 	"todo-clean/domain"
-	"todo-clean/mockdata"
+	"todo-clean/util/mockdata"
 )
 
 import (

@@ -5,11 +5,11 @@ import (
 	"todo-clean/domain"
 )
 
-type newRepository struct {
+type NewRepo struct {
 	db *gorm.DB
 }
 
 func NewRepository(db *gorm.DB) domain.TodoRepositoryInterface {
-	return &newRepository{db: db}
+	return &NewRepo{db: db}
 
 }
