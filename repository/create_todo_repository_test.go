@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 	"gorm.io/driver/postgres"
@@ -75,7 +76,7 @@ func (suite *TestCreateRepositoryTestSuite) Test_Happy() {
 		mockEntity.CreatedAt,
 	).WillReturnResult(sqlmock.NewResult(1, 1))
 
-	result, err := suite.repository.CreateTodoRepository(suite.mockGormDB.Begin(), mockEntity)
+	result, err := suite.repository.CreateTodoRepository(context.Background(), suite.mockGormDB.Begin(), mockEntity)
 
 	assert.Nil(suite.T(), err)
 	assert.NotNil(suite.T(), result)
@@ -95,7 +96,7 @@ func (suite *TestCreateRepositoryTestSuite) Test_Error_Something_Went_Wrong() {
 		mockEntity.CreatedAt,
 	).WillReturnError(mockdata.RepositoryError)
 
-	result, err := suite.repository.CreateTodoRepository(suite.mockGormDB.Begin(), mockEntity)
+	result, err := suite.repository.CreateTodoRepository(context.Background(), suite.mockGormDB.Begin(), mockEntity)
 
 	assert.Nil(suite.T(), result)
 	assert.Error(suite.T(), err)

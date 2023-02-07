@@ -3,17 +3,18 @@ package usecase_test
 import (
 	"context"
 	"database/sql"
-	"fmt"
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"log"
 	"testing"
 	"time"
 	"todo-clean/domain"
 	"todo-clean/domain/mocks"
+	"todo-clean/lib/error_lib"
 	"todo-clean/usecase"
 	"todo-clean/util/mockdata"
 )
@@ -92,16 +93,15 @@ func (suite *TestCreateUseCaseTestSuite) Test_Happy() {
 	assert.Equal(suite.T(), suite.createEntityModel.Description, result.Description)
 
 	assert.WithinDuration(suite.T(), suite.createEntityModel.CreatedAt, suite.createEntityModel.CreatedAt, time.Second)
-
 }
 
-//TODO Create Error Wrapper
 func (suite *TestCreateUseCaseTestSuite) Test_Error_Something_Went_Wrong() {
 	var err error
 	appCtx := context.Background()
 	tx := suite.mockGormDB.Begin()
 
-	mockError := fmt.Errorf("create todo usecase error: %w", mockdata.RepositoryError)
+	mockError := error_lib.WrapError("create todo usecase", mockdata.RepositoryError)
+	log.Println(mockError)
 	suite.repositoryMock.On("Begin", appCtx).Return(tx, nil).
 		On("CreateTodoRepository", tx, mock.AnythingOfType("domain.CreateTodoEntity")).Return(nil, mockdata.RepositoryError).
 		On("Commit").Return(nil, mockdata.RepositoryError).On("RollBack").Return(mockdata.RepositoryError)

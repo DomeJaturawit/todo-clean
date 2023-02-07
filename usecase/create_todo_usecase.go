@@ -2,34 +2,19 @@ package usecase
 
 import (
 	"context"
-	"fmt"
 	"github.com/google/uuid"
 	"time"
 	"todo-clean/domain"
+	"todo-clean/lib/error_lib"
 )
 
-//	type testS struct {
-//		Title string
-//	}
-//
-// func (n *newUseCase)test()(){
-//
-//	test := testS{}
-//
-//	result,err := n.CreateTodoUseCase(domain.CreateTodoEntity{
-//
-//		Title:       test.Title,
-//
-//	})
-//
-// }
 // TODO Use Func Wrapper Error!
 func (n *newUseCase) CreateTodoUseCase(ctx context.Context, todo domain.CreateTodoEntityRequest) (result *domain.CreateTodoEntity, err error) {
 
 	dbTx, err := n.repo.Begin(ctx)
 	if err != nil {
 
-		return nil, fmt.Errorf("create todo usecase error: %w", err)
+		return nil, error_lib.WrapError("create todo usecase", err)
 	}
 	result, err = n.repo.CreateTodoRepository(dbTx, domain.CreateTodoEntity{
 		ID:          uuid.New(),
@@ -40,15 +25,15 @@ func (n *newUseCase) CreateTodoUseCase(ctx context.Context, todo domain.CreateTo
 	})
 
 	if err != nil {
-		return nil, fmt.Errorf("create todo usecase error: %w", err)
+		return nil, error_lib.WrapError("create todo usecase", err)
 	}
 	dbTx, err = n.repo.Commit()
 	if err != nil {
 		if rollbackErr := n.repo.RollBack(dbTx); rollbackErr != nil {
 
-			return nil, fmt.Errorf("create todo usecase error: %w", rollbackErr)
+			return nil, error_lib.WrapError("rollback create todo usecase", err)
 		}
-		return nil, fmt.Errorf("create todo usecase error: %w", err)
+		return nil, error_lib.WrapError("commit create todo usecase", err)
 	}
 
 	return result, nil

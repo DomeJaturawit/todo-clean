@@ -1,15 +1,15 @@
 package repository
 
 import (
-	"errors"
+	"context"
 	"gorm.io/gorm"
-	"log"
 	"todo-clean/domain"
+	"todo-clean/lib/error_lib"
 	"todo-clean/repository/model"
 )
 
-// TODO add input context
-func (repo newRepo) CreateTodoRepository(db *gorm.DB, todo domain.CreateTodoEntity) (resp *domain.CreateTodoEntity, err error) {
+// TODO Add input context
+func (repo newRepo) CreateTodoRepository(ctx context.Context, db *gorm.DB, todo domain.CreateTodoEntity) (resp *domain.CreateTodoEntity, err error) {
 
 	input := model.TbTodoRepositoryModel{
 		ID:          todo.ID,
@@ -19,11 +19,9 @@ func (repo newRepo) CreateTodoRepository(db *gorm.DB, todo domain.CreateTodoEnti
 		CreatedAt:   todo.CreatedAt,
 	}
 
-	if err = db.Create(input).Error; err != nil {
-		err = errors.New("RepositoryError")
-		log.Println("ERR >>>>", err.Error())
+	if err = db.WithContext(ctx).Create(input).Error; err != nil {
 
-		return resp, err
+		return resp, error_lib.WrapError("repository", err)
 	}
 
 	resp = &domain.CreateTodoEntity{
