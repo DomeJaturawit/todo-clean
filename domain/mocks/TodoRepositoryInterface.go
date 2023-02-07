@@ -85,27 +85,18 @@ func (_m *TodoRepositoryInterface) CreateTodoRepository(db *gorm.DB, todo domain
 	return r0, r1
 }
 
-// RollBack provides a mock function with given fields:
-func (_m *TodoRepositoryInterface) RollBack() (*gorm.DB, error) {
-	ret := _m.Called()
+// RollBack provides a mock function with given fields: tx
+func (_m *TodoRepositoryInterface) RollBack(tx *gorm.DB) error {
+	ret := _m.Called(tx)
 
-	var r0 *gorm.DB
-	if rf, ok := ret.Get(0).(func() *gorm.DB); ok {
-		r0 = rf()
+	var r0 error
+	if rf, ok := ret.Get(0).(func(*gorm.DB) error); ok {
+		r0 = rf(tx)
 	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*gorm.DB)
-		}
+		r0 = ret.Error(0)
 	}
 
-	var r1 error
-	if rf, ok := ret.Get(1).(func() error); ok {
-		r1 = rf()
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
+	return r0
 }
 
 type mockConstructorTestingTNewTodoRepositoryInterface interface {

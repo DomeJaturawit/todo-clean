@@ -2,36 +2,36 @@ package repository
 
 import (
 	"context"
+	"fmt"
 	"gorm.io/gorm"
 )
 
-func (repo NewRepo) Begin(ctx context.Context) (tx *gorm.DB, err error) {
+func (repo newRepo) Begin(ctx context.Context) (tx *gorm.DB, err error) {
 
 	tx = repo.db.Begin()
 	err = tx.Error
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("begin repository error: %w", err)
 	}
 
 	return tx, nil
 }
 
-func (repo NewRepo) RollBack() (tx *gorm.DB, err error) {
+func (repo newRepo) RollBack(db *gorm.DB) (err error) {
 
-	tx = repo.db.Rollback()
-	err = tx.Error
+	err = db.Rollback().Error
 
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return tx, nil
+	return nil
 }
 
-func (repo NewRepo) Commit() (tx *gorm.DB, err error) {
+func (repo newRepo) Commit() (tx *gorm.DB, err error) {
 
-	tx = repo.db.Rollback()
+	tx = repo.db.Commit()
 	err = tx.Error
 
 	if err != nil {
