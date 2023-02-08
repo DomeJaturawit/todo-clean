@@ -94,11 +94,11 @@ func (suite *TestCreateRepositoryTestSuite) Test_Error_Something_Went_Wrong() {
 		mockEntity.Description,
 		mockEntity.Status,
 		mockEntity.CreatedAt,
-	).WillReturnError(common.MockRepositoryError)
+	).WillReturnError(common.ErrDBCreateTodoRepo)
 
 	result, err := suite.repository.CreateTodoRepository(context.Background(), suite.mockGormDB.Begin(), mockEntity)
 
 	assert.Nil(suite.T(), result)
 	assert.Error(suite.T(), err)
-	assert.Contains(suite.T(), err.Error(), common.MockRepositoryError.Error())
+	assert.Contains(suite.T(), err.Error(), common.ErrDBCreateTodoRepo.Error())
 }

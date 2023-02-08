@@ -21,7 +21,7 @@ func (repo newRepo) CreateTodoRepository(ctx context.Context, db *gorm.DB, todo 
 
 	if err = db.WithContext(ctx).Create(input).Error; err != nil {
 
-		return resp, error_lib.WrapError(common.ErrDBCreateTodo, err)
+		return resp, error_lib.WrapError(common.ErrDBCreateTodo.Error(), err)
 	}
 
 	resp = &domain.CreateTodoEntity{

@@ -14,7 +14,7 @@ func (n *newUseCase) CreateTodoUseCase(ctx context.Context, todo domain.CreateTo
 	dbTx, err := n.repo.Begin(ctx)
 	if err != nil {
 
-		return nil, error_lib.WrapError(common.ErrBeginCreateTodo, err)
+		return nil, error_lib.WrapError(common.ErrBeginCreateTodo.Error(), err)
 	}
 	result, err = n.repo.CreateTodoRepository(ctx, dbTx, domain.CreateTodoEntity{
 		ID:          uuid.New(),
@@ -25,16 +25,16 @@ func (n *newUseCase) CreateTodoUseCase(ctx context.Context, todo domain.CreateTo
 	})
 
 	if err != nil {
-		return nil, error_lib.WrapError(common.ErrUseCaseCreateTodo, err)
+		return nil, error_lib.WrapError(common.ErrUseCaseCreateTodo.Error(), err)
 	}
 
 	err = n.repo.Commit(dbTx)
 	if err != nil {
 		if rollbackErr := n.repo.RollBack(dbTx); rollbackErr != nil {
 
-			return nil, error_lib.WrapError(common.ErrRollbackCreateTodo, rollbackErr)
+			return nil, error_lib.WrapError(common.ErrRollbackCreateTodo.Error(), rollbackErr)
 		}
-		return nil, error_lib.WrapError(common.ErrCommitCreateTodo, err)
+		return nil, error_lib.WrapError(common.ErrCommitCreateTodo.Error(), err)
 	}
 
 	return result, nil

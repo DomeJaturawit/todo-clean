@@ -13,7 +13,7 @@ func (repo newRepo) Begin(ctx context.Context) (tx *gorm.DB, err error) {
 	err = tx.Error
 
 	if err != nil {
-		return nil, error_lib.WrapError(common.ErrBeginCreateTodo, err)
+		return nil, error_lib.WrapError(common.ErrBeginCreateTodo.Error(), err)
 	}
 
 	return tx, nil

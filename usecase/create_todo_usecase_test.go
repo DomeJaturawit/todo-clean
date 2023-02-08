@@ -98,15 +98,15 @@ func (suite *TestCreateUseCaseTestSuite) Test_Error_Something_Went_Wrong() {
 	appCtx := context.Background()
 	tx := suite.mockGormDB.Begin()
 
-	mockError := error_lib.WrapError(common.ErrUseCaseCreateTodo, common.MockRepositoryError)
+	expectedError := error_lib.WrapError(common.ErrUseCaseCreateTodo.Error(), common.ErrDBCreateTodoRepo)
 
 	suite.repositoryMock.On("Begin", appCtx).Return(tx, nil).
-		On("CreateTodoRepository", appCtx, tx, mock.AnythingOfType("domain.CreateTodoEntity")).Return(nil, common.MockRepositoryError).
-		On("Commit").Return(common.MockRepositoryError).On("RollBack").Return(common.MockRepositoryError)
+		On("CreateTodoRepository", appCtx, tx, mock.AnythingOfType("domain.CreateTodoEntity")).Return(nil, expectedError).
+		On("Commit").Return(expectedError).On("RollBack").Return(expectedError)
 
 	result, err := suite.useCase.CreateTodoUseCase(appCtx, suite.request)
 
 	assert.Nil(suite.T(), result)
 	assert.Error(suite.T(), err)
-	assert.Contains(suite.T(), err.Error(), mockError.Error())
+	assert.Contains(suite.T(), err.Error(), expectedError.Error())
 }
