@@ -64,8 +64,8 @@ func (suite *TestCreateUseCaseTestSuite) SetupTest() {
 	suite.repositoryMock = new(mocks.TodoRepositoryInterface)
 	suite.useCase = usecase.NewUseCase(suite.repositoryMock)
 
-	suite.request = mockdata.CreateTodoEntityRequestMockData()
-	suite.createEntityModel = mockdata.CreateTodoUseCaseEntityMockData(suite.request)
+	suite.request = *mockdata.CreateTodoEntityRequestMockData()
+	suite.createEntityModel = *mockdata.CreateTodoUseCaseEntityMockData()
 
 }
 
@@ -76,7 +76,7 @@ func (suite *TestCreateUseCaseTestSuite) TearDownTest() {
 func (suite *TestCreateUseCaseTestSuite) Test_Happy() {
 
 	appCtx := context.Background()
-	mockEntity := mockdata.CreateTodoUseCaseEntityMockData(suite.request)
+	mockEntity := mockdata.CreateTodoUseCaseEntityMockData()
 
 	tx := suite.mockGormDB.Begin()
 
