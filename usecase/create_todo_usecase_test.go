@@ -9,9 +9,9 @@ import (
 	"github.com/stretchr/testify/suite"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"log"
 	"testing"
 	"time"
+	"todo-clean/common"
 	"todo-clean/domain"
 	"todo-clean/domain/mocks"
 	"todo-clean/lib/error_lib"
@@ -81,8 +81,8 @@ func (suite *TestCreateUseCaseTestSuite) Test_Happy() {
 	tx := suite.mockGormDB.Begin()
 
 	suite.repositoryMock.On("Begin", appCtx).Return(tx, nil).
-		On("CreateTodoRepository", tx, mock.AnythingOfType("domain.CreateTodoEntity")).Return(&mockEntity, nil).
-		On("Commit").Return(tx, nil)
+		On("CreateTodoRepository", appCtx, tx, mock.AnythingOfType("domain.CreateTodoEntity")).Return(&mockEntity, nil).
+		On("Commit", tx).Return(nil)
 
 	result, err := suite.useCase.CreateTodoUseCase(appCtx, suite.request)
 
@@ -91,25 +91,22 @@ func (suite *TestCreateUseCaseTestSuite) Test_Happy() {
 	assert.Equal(suite.T(), suite.createEntityModel.Title, result.Title)
 	assert.Equal(suite.T(), suite.createEntityModel.Status, result.Status)
 	assert.Equal(suite.T(), suite.createEntityModel.Description, result.Description)
-
 	assert.WithinDuration(suite.T(), suite.createEntityModel.CreatedAt, suite.createEntityModel.CreatedAt, time.Second)
 }
 
 func (suite *TestCreateUseCaseTestSuite) Test_Error_Something_Went_Wrong() {
-	var err error
 	appCtx := context.Background()
 	tx := suite.mockGormDB.Begin()
 
-	mockError := error_lib.WrapError("create todo usecase", mockdata.RepositoryError)
-	log.Println(mockError)
+	mockError := error_lib.WrapError(common.ErrUseCaseCreateTodo, common.MockRepositoryError)
+
 	suite.repositoryMock.On("Begin", appCtx).Return(tx, nil).
-		On("CreateTodoRepository", tx, mock.AnythingOfType("domain.CreateTodoEntity")).Return(nil, mockdata.RepositoryError).
-		On("Commit").Return(nil, mockdata.RepositoryError).On("RollBack").Return(mockdata.RepositoryError)
+		On("CreateTodoRepository", appCtx, tx, mock.AnythingOfType("domain.CreateTodoEntity")).Return(nil, common.MockRepositoryError).
+		On("Commit").Return(common.MockRepositoryError).On("RollBack").Return(common.MockRepositoryError)
 
 	result, err := suite.useCase.CreateTodoUseCase(appCtx, suite.request)
 
 	assert.Nil(suite.T(), result)
 	assert.Error(suite.T(), err)
-
 	assert.Contains(suite.T(), err.Error(), mockError.Error())
 }

@@ -39,36 +39,27 @@ func (_m *TodoRepositoryInterface) Begin(ctx context.Context) (*gorm.DB, error) 
 	return r0, r1
 }
 
-// Commit provides a mock function with given fields:
-func (_m *TodoRepositoryInterface) Commit() (*gorm.DB, error) {
-	ret := _m.Called()
+// Commit provides a mock function with given fields: tx
+func (_m *TodoRepositoryInterface) Commit(tx *gorm.DB) error {
+	ret := _m.Called(tx)
 
-	var r0 *gorm.DB
-	if rf, ok := ret.Get(0).(func() *gorm.DB); ok {
-		r0 = rf()
+	var r0 error
+	if rf, ok := ret.Get(0).(func(*gorm.DB) error); ok {
+		r0 = rf(tx)
 	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*gorm.DB)
-		}
+		r0 = ret.Error(0)
 	}
 
-	var r1 error
-	if rf, ok := ret.Get(1).(func() error); ok {
-		r1 = rf()
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
+	return r0
 }
 
-// CreateTodoRepository provides a mock function with given fields: db, todo
-func (_m *TodoRepositoryInterface) CreateTodoRepository(db *gorm.DB, todo domain.CreateTodoEntity) (*domain.CreateTodoEntity, error) {
-	ret := _m.Called(db, todo)
+// CreateTodoRepository provides a mock function with given fields: ctx, db, todo
+func (_m *TodoRepositoryInterface) CreateTodoRepository(ctx context.Context, db *gorm.DB, todo domain.CreateTodoEntity) (*domain.CreateTodoEntity, error) {
+	ret := _m.Called(ctx, db, todo)
 
 	var r0 *domain.CreateTodoEntity
-	if rf, ok := ret.Get(0).(func(*gorm.DB, domain.CreateTodoEntity) *domain.CreateTodoEntity); ok {
-		r0 = rf(db, todo)
+	if rf, ok := ret.Get(0).(func(context.Context, *gorm.DB, domain.CreateTodoEntity) *domain.CreateTodoEntity); ok {
+		r0 = rf(ctx, db, todo)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*domain.CreateTodoEntity)
@@ -76,8 +67,8 @@ func (_m *TodoRepositoryInterface) CreateTodoRepository(db *gorm.DB, todo domain
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*gorm.DB, domain.CreateTodoEntity) error); ok {
-		r1 = rf(db, todo)
+	if rf, ok := ret.Get(1).(func(context.Context, *gorm.DB, domain.CreateTodoEntity) error); ok {
+		r1 = rf(ctx, db, todo)
 	} else {
 		r1 = ret.Error(1)
 	}
