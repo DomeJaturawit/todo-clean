@@ -1,4 +1,4 @@
-package repository
+package repository_test
 
 import (
 	"context"
@@ -9,6 +9,7 @@ import (
 	"testing"
 	"todo-clean/common"
 	"todo-clean/domain"
+	"todo-clean/repository"
 	"todo-clean/util/mockdata"
 )
 
@@ -52,7 +53,7 @@ func (suite *TestCreateRepositoryTestSuite) SetupTest() {
 		Conn:                 suite.sqlMockDB,
 	}), &gorm.Config{})
 	assert.NoError(suite.T(), err)
-	suite.repository = NewRepository(suite.mockGormDB)
+	suite.repository = repository.NewRepository(suite.mockGormDB)
 
 }
 

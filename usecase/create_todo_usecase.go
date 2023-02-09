@@ -32,9 +32,9 @@ func (n *newUseCase) CreateTodoUseCase(ctx context.Context, todo domain.CreateTo
 	if err != nil {
 		if rollbackErr := n.repo.RollBack(dbTx); rollbackErr != nil {
 
-			return nil, error_lib.WrapError(common.ErrRollbackCreateTodo.Error(), rollbackErr)
+			return nil, error_lib.WrapError(common.ErrRollbackTodo.Error(), rollbackErr)
 		}
-		return nil, error_lib.WrapError(common.ErrCommitCreateTodo.Error(), err)
+		return nil, error_lib.WrapError(common.ErrCommitTodo.Error(), err)
 	}
 
 	return result, nil

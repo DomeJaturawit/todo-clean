@@ -16,3 +16,13 @@ func CreateTodoEntityMockData() domain.CreateTodoEntity {
 		CreatedAt:   time.Now(),
 	}
 }
+
+func GetTodoEntityMockData() *domain.GetTodoEntity {
+	return domain.NewGetTodoEntity(
+		mockID,
+		mockTitle,
+		mockDescription,
+		mockStatus,
+		mockCreatedAt,
+	)
+}
