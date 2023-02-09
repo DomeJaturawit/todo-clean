@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 	"gorm.io/driver/postgres"
@@ -8,7 +9,7 @@ import (
 	"testing"
 	"todo-clean/common"
 	"todo-clean/domain"
-	"todo-clean/mockdata"
+	"todo-clean/util/mockdata"
 )
 
 import (
@@ -75,7 +76,7 @@ func (suite *TestCreateRepositoryTestSuite) Test_Happy() {
 		mockEntity.CreatedAt,
 	).WillReturnResult(sqlmock.NewResult(1, 1))
 
-	result, err := suite.repository.CreateTodoRepository(suite.mockGormDB.Begin(), mockEntity)
+	result, err := suite.repository.CreateTodoRepository(context.Background(), suite.mockGormDB.Begin(), mockEntity)
 
 	assert.Nil(suite.T(), err)
 	assert.NotNil(suite.T(), result)
@@ -93,11 +94,11 @@ func (suite *TestCreateRepositoryTestSuite) Test_Error_Something_Went_Wrong() {
 		mockEntity.Description,
 		mockEntity.Status,
 		mockEntity.CreatedAt,
-	).WillReturnError(mockdata.RepositoryError)
+	).WillReturnError(common.ErrDBCreateTodoRepo)
 
-	result, err := suite.repository.CreateTodoRepository(suite.mockGormDB.Begin(), mockEntity)
+	result, err := suite.repository.CreateTodoRepository(context.Background(), suite.mockGormDB.Begin(), mockEntity)
 
 	assert.Nil(suite.T(), result)
 	assert.Error(suite.T(), err)
-	assert.Contains(suite.T(), err.Error(), mockdata.RepositoryError.Error())
+	assert.Contains(suite.T(), err.Error(), common.ErrDBCreateTodoRepo.Error())
 }
