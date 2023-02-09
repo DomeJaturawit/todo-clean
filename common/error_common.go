@@ -21,4 +21,6 @@ var (
 	ErrFormat     = errors.New("invalid input format")
 	ErrInternal   = errors.New("internal server error")
 	ErrBadRequest = errors.New("bad request")
+
+	ErrCopierCopy = errors.New("failed to copier copy")
 )

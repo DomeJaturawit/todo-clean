@@ -17,7 +17,7 @@ func CreateTodoEntityMockData() domain.CreateTodoEntity {
 	}
 }
 
-func GetTodoEntityMockData() *domain.GetTodoEntity {
+func GetTodoEntityMockData() domain.GetTodoEntity {
 	return domain.NewGetTodoEntity(
 		mockID,
 		mockTitle,

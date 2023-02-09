@@ -2,7 +2,7 @@ package common
 
 const (
 	TodoTable          = "todos"
-	TodoIDCol          = "uuid"
+	TodoIDCol          = "id"
 	TodoTitleCol       = "title"
 	TodoDescriptionCol = "description"
 	TodoStatusCol      = "status"

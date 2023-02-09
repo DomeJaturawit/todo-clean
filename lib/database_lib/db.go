@@ -7,15 +7,6 @@ import (
 	"os"
 )
 
-var requiredEnvironmentVariablesForPostGres = []string{
-	"POSTGRES_HOST",
-	"POSTGRES_USER",
-	"POSTGRES_PASSWORD",
-	"POSTGRES_DB",
-	"POSTGRES_PORT",
-	"POSTGRES_SSL",
-}
-
 func ConnectDB() (client *gorm.DB, err error) {
 	host := os.Getenv("POSTGRES_HOST")
 	user := os.Getenv("POSTGRES_USER")

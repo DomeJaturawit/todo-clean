@@ -9,7 +9,6 @@ import (
 	"gorm.io/gorm"
 	"testing"
 	"todo-clean/domain"
-	"todo-clean/domain/mocks"
 	"todo-clean/repository"
 	"todo-clean/util/mockdata"
 )
@@ -20,11 +19,10 @@ func TestCommitCreateTodoRepository(t *testing.T) {
 
 type TestCommitCreateRepositoryTestSuite struct {
 	suite.Suite
-	sqlMock        sqlmock.Sqlmock
-	sqlMockDB      *sql.DB
-	mockGormDB     *gorm.DB
-	repository     domain.TodoRepositoryInterface
-	repositoryMock *mocks.TodoRepositoryInterface
+	sqlMock    sqlmock.Sqlmock
+	sqlMockDB  *sql.DB
+	mockGormDB *gorm.DB
+	repository domain.TodoRepositoryInterface
 }
 
 func (suite *TestCommitCreateRepositoryTestSuite) SetupSuite() {

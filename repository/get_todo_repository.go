@@ -14,10 +14,10 @@ func (repo newRepo) GetTodoRepository(ctx context.Context) (resp []domain.GetTod
 	var todos []model.TbTodoRepositoryModel
 
 	if err = repo.db.WithContext(ctx).Find(&todos).Error; err != nil {
-
 		return resp, error_lib.WrapError(common.ErrDBGetTodo.Error(), err)
 	}
 
+	//I want keep this comment, i think it's help when i comeback to read,it will explain copier.Copy below
 	//resp = make([]domain.GetTodoEntity, len(todos))
 	//for i, todo := range todos {
 	//	resp[i] = domain.GetTodoEntity{
@@ -30,7 +30,7 @@ func (repo newRepo) GetTodoRepository(ctx context.Context) (resp []domain.GetTod
 	//}
 
 	if err := copier.Copy(&resp, &todos); err != nil {
-		return nil, err //TODO: wrap Error
+		return nil, error_lib.WrapError(common.ErrCopierCopy.Error(), err)
 	}
 
 	return resp, nil
