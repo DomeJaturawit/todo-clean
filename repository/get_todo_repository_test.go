@@ -4,25 +4,23 @@ import (
 	"context"
 	"database/sql"
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"regexp"
 	"testing"
-	"time"
 	"todo-clean/common"
 	"todo-clean/domain"
 	"todo-clean/repository"
 	mockdata "todo-clean/util/mockdata"
 )
 
-func TestGetAllTodoRepository(t *testing.T) {
-	suite.Run(t, new(TestGetAllRepositoryTestSuite))
+func TestGetTodoRepository(t *testing.T) {
+	suite.Run(t, new(TestGetRepositoryTestSuite))
 }
 
-type TestGetAllRepositoryTestSuite struct {
+type TestGetRepositoryTestSuite struct {
 	suite.Suite
 	sqlMock       sqlmock.Sqlmock
 	sqlMockDB     *sql.DB
@@ -31,15 +29,15 @@ type TestGetAllRepositoryTestSuite struct {
 	mockDataModel []domain.GetTodoEntity
 }
 
-func (suite *TestGetAllRepositoryTestSuite) SetupSuite() {
+func (suite *TestGetRepositoryTestSuite) SetupSuite() {
 
 }
 
-func (suite *TestGetAllRepositoryTestSuite) TearDownSuite() {
+func (suite *TestGetRepositoryTestSuite) TearDownSuite() {
 
 }
 
-func (suite *TestGetAllRepositoryTestSuite) SetupTest() {
+func (suite *TestGetRepositoryTestSuite) SetupTest() {
 	var err error
 
 	suite.sqlMockDB, suite.sqlMock, err = sqlmock.New()
@@ -55,24 +53,17 @@ func (suite *TestGetAllRepositoryTestSuite) SetupTest() {
 	suite.repository = repository.NewRepository(suite.mockGormDB)
 	suite.mockDataModel = []domain.GetTodoEntity{
 		mockdata.GetTodoEntityMockData(),
-		mockdata.GetTodoEntityMockData(),
 	}
-
-	suite.mockDataModel[1].ID = uuid.New()
-	suite.mockDataModel[1].Title = mockdata.NewString()
-	suite.mockDataModel[1].Status = mockdata.NewString()
-	suite.mockDataModel[1].Description = mockdata.NewString()
-	suite.mockDataModel[1].CreatedAt = time.Now()
 
 }
 
-func (suite *TestGetAllRepositoryTestSuite) TearDownTest() {
+func (suite *TestGetRepositoryTestSuite) TearDownTest() {
 	assert.NoError(suite.T(), suite.sqlMock.ExpectationsWereMet())
 }
 
-func (suite *TestGetAllRepositoryTestSuite) Test_Happy() {
+func (suite *TestGetRepositoryTestSuite) Test_Happy() {
 	suite.sqlMock.MatchExpectationsInOrder(true)
-	suite.sqlMock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM "` + common.TodoTable + `"`)).
+	suite.sqlMock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM "` + common.TodoTable + `" WHERE ` + common.TodoIDCol + ` = $1`)).WithArgs(suite.mockDataModel[0].ID).
 		WillReturnRows(sqlmock.NewRows([]string{
 			common.TodoIDCol,
 			common.TodoTitleCol,
@@ -85,15 +76,9 @@ func (suite *TestGetAllRepositoryTestSuite) Test_Happy() {
 			suite.mockDataModel[0].Description,
 			suite.mockDataModel[0].Status,
 			suite.mockDataModel[0].CreatedAt,
-		).AddRow(
-			suite.mockDataModel[1].ID,
-			suite.mockDataModel[1].Title,
-			suite.mockDataModel[1].Description,
-			suite.mockDataModel[1].Status,
-			suite.mockDataModel[1].CreatedAt,
 		))
 	tx := context.Background()
-	result, err := suite.repository.GetAllTodoRepository(tx)
+	result, err := suite.repository.GetTodoRepository(tx, suite.mockDataModel[0].ID)
 	assert.Nil(suite.T(), err)
 	assert.NotNil(suite.T(), result)
 	assert.Equal(suite.T(), len(result), len(suite.mockDataModel))
@@ -102,12 +87,13 @@ func (suite *TestGetAllRepositoryTestSuite) Test_Happy() {
 
 }
 
-func (suite *TestGetAllRepositoryTestSuite) Test_Error_Something_Went_Wrong() {
+func (suite *TestGetRepositoryTestSuite) Test_Error_Something_Went_Wrong() {
 	suite.sqlMock.MatchExpectationsInOrder(true)
-	suite.sqlMock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM "` + common.TodoTable + `"`)).
+	suite.sqlMock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM "` + common.TodoTable + `" WHERE ` + common.TodoIDCol + ` = $1`)).WithArgs(suite.mockDataModel[0].ID).
 		WillReturnError(common.ErrDBGetTodo)
+
 	tx := context.Background()
-	result, err := suite.repository.GetAllTodoRepository(tx)
+	result, err := suite.repository.GetTodoRepository(tx, suite.mockDataModel[0].ID)
 	assert.Nil(suite.T(), result)
 	assert.Error(suite.T(), err)
 	assert.Contains(suite.T(), err.Error(), common.ErrDBGetTodo.Error())
