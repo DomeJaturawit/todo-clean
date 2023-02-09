@@ -25,7 +25,7 @@ type TestGetRepositoryTestSuite struct {
 	sqlMock       sqlmock.Sqlmock
 	sqlMockDB     *sql.DB
 	mockGormDB    *gorm.DB
-	repository    domain.TodoRepositoryInterface
+	repository    domain.TodoRepository
 	mockDataModel []domain.GetTodoEntity
 }
 

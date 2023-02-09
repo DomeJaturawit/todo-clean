@@ -1,19 +1,20 @@
-package database_lib
+package database
 
 import (
 	"fmt"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"os"
+	"todo-clean/common"
 )
 
 func ConnectDB() (client *gorm.DB, err error) {
-	host := os.Getenv("POSTGRES_HOST")
-	user := os.Getenv("POSTGRES_USER")
-	pw := os.Getenv("POSTGRES_PASSWORD")
-	port := os.Getenv("POSTGRES_PORT")
-	dbName := os.Getenv("POSTGRES_DB")
-	ssl := os.Getenv("POSTGRES_SSL")
+	host := os.Getenv(common.PostgresHost)
+	user := os.Getenv(common.PostgresUser)
+	pw := os.Getenv(common.PostgresPassWord)
+	port := os.Getenv(common.PostgresPort)
+	dbName := os.Getenv(common.PostgresDB)
+	ssl := os.Getenv(common.PostgresSSL)
 
 	dsn := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=%s", host, port, user, dbName, pw, ssl)
 

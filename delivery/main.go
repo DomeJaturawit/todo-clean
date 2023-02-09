@@ -7,10 +7,10 @@ import (
 )
 
 type newHandler struct {
-	usecase domain.TodoUseCaseInterface
+	usecase domain.TodoUseCase
 }
 
-func NewHandler(restful *gin.Engine, usecase domain.TodoUseCaseInterface) {
+func NewHandler(restful *gin.Engine, usecase domain.TodoUseCase) {
 
 	restfulHandler := newHandler{usecase: usecase}
 

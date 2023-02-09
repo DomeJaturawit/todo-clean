@@ -3,7 +3,7 @@ package repository
 import (
 	"gorm.io/gorm"
 	"todo-clean/common"
-	"todo-clean/lib/error_lib"
+	"todo-clean/lib/errorLib"
 )
 
 func (repo newRepo) RollBack(db *gorm.DB) (err error) {
@@ -11,7 +11,7 @@ func (repo newRepo) RollBack(db *gorm.DB) (err error) {
 	err = db.Rollback().Error
 
 	if err != nil {
-		return error_lib.WrapError(common.ErrRollbackTodo.Error(), err)
+		return errorLib.WrapError(common.ErrRollbackTodo.Error(), err)
 	}
 
 	return nil

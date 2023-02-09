@@ -6,40 +6,44 @@ import (
 	"todo-clean/common"
 	"todo-clean/delivery/model"
 	"todo-clean/domain"
-	"todo-clean/lib/error_lib"
+	"todo-clean/lib/errorLib"
 )
 
-func (h newHandler) CreateTodoHandler(c *gin.Context) {
+type GinResponseError struct {
+	Title string `json:"title"`
+	Error error  `json:"error"`
+}
+
+func (h newHandler) CreateTodoHandler(ctx *gin.Context) {
 	var req model.CreateTodoDeliveryRequest
-	if err := c.BindJSON(&req); err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			"title": common.ErrFormat.Error(),
-			"error": err.Error(),
-		})
-
-	}
-
-	if err := error_lib.CheckEmptyStringCreateTodoRequest(req); err != nil {
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-			"title": common.ErrFormat.Error(),
-			"error": err.Error(),
+	if err := ctx.BindJSON(&req); err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, GinResponseError{
+			Title: common.ErrFormat.Error(),
+			Error: err,
 		})
 	}
 
-	todo := domain.CreateTodoEntityRequest{
+	if err := errorLib.CheckEmptyStringCreateTodoRequest(req); err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, GinResponseError{
+			Title: common.ErrFormat.Error(),
+			Error: err,
+		})
+	}
+
+	todo := domain.CreateTodoInputEntity{
 		Title:       req.Title,
 		Status:      req.Status,
 		Description: req.Description,
 	}
 
-	ctx := c.Request.Context()
-	resp, err := h.usecase.CreateTodoUseCase(ctx, todo)
+	tx := ctx.Request.Context()
+	resp, err := h.usecase.CreateTodoUseCase(tx, todo)
 	if err != nil {
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-			"title": common.ErrInternal.Error(),
-			"error": err.Error(),
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, GinResponseError{
+			Title: common.ErrInternal.Error(),
+			Error: err,
 		})
 	}
 
-	c.JSON(http.StatusCreated, resp)
+	ctx.JSON(http.StatusCreated, resp)
 }

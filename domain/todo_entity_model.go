@@ -17,14 +17,14 @@ func NewCreateTodoEntity(ID uuid.UUID, title string, description string, status 
 	return &CreateTodoEntity{ID: ID, Title: title, Description: description, Status: status, CreatedAt: createdAt}
 }
 
-type CreateTodoEntityRequest struct {
+type CreateTodoInputEntity struct {
 	Title       string `json:"title" gorm:"column:title"`
 	Description string `json:"description" gorm:"column:description"`
 	Status      string `json:"status" gorm:"column:status"`
 }
 
-func NewCreateTodoEntityRequest(title string, description string, status string) *CreateTodoEntityRequest {
-	return &CreateTodoEntityRequest{Title: title, Description: description, Status: status}
+func NewCreateTodoInputEntity(title string, description string, status string) *CreateTodoInputEntity {
+	return &CreateTodoInputEntity{Title: title, Description: description, Status: status}
 }
 
 type GetTodoEntity struct {

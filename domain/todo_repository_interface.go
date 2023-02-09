@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type TodoRepositoryInterface interface {
+type TodoRepository interface {
 	GetAllTodoRepository(ctx context.Context) (resp []GetTodoEntity, err error)
 	GetTodoRepository(ctx context.Context, key uuid.UUID) (resp []GetTodoEntity, err error)
 	CreateTodoRepository(ctx context.Context, db *gorm.DB, todo CreateTodoEntity) (resp *CreateTodoEntity, err error)
