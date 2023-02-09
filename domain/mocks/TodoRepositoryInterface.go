@@ -76,8 +76,8 @@ func (_m *TodoRepositoryInterface) CreateTodoRepository(ctx context.Context, db 
 	return r0, r1
 }
 
-// GetTodoRepository provides a mock function with given fields: ctx
-func (_m *TodoRepositoryInterface) GetTodoRepository(ctx context.Context) ([]domain.GetTodoEntity, error) {
+// GetAllTodoRepository provides a mock function with given fields: ctx
+func (_m *TodoRepositoryInterface) GetAllTodoRepository(ctx context.Context) ([]domain.GetTodoEntity, error) {
 	ret := _m.Called(ctx)
 
 	var r0 []domain.GetTodoEntity

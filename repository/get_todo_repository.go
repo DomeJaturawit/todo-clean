@@ -9,7 +9,7 @@ import (
 	"todo-clean/repository/model"
 )
 
-func (repo newRepo) GetTodoRepository(ctx context.Context) (resp []domain.GetTodoEntity, err error) {
+func (repo newRepo) GetAllTodoRepository(ctx context.Context) (resp []domain.GetTodoEntity, err error) {
 
 	var todos []model.TbTodoRepositoryModel
 

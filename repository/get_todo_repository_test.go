@@ -93,7 +93,7 @@ func (suite *TestGetRepositoryTestSuite) Test_Happy() {
 			suite.mockDataModel[1].CreatedAt,
 		))
 	tx := context.Background()
-	result, err := suite.repository.GetTodoRepository(tx)
+	result, err := suite.repository.GetAllTodoRepository(tx)
 	assert.Nil(suite.T(), err)
 	assert.NotNil(suite.T(), result)
 	assert.Equal(suite.T(), len(result), len(suite.mockDataModel))
@@ -107,7 +107,7 @@ func (suite *TestGetRepositoryTestSuite) Test_Error_Something_Went_Wrong() {
 	suite.sqlMock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM "` + common.TodoTable + `"`)).
 		WillReturnError(common.ErrDBGetTodo)
 	tx := context.Background()
-	result, err := suite.repository.GetTodoRepository(tx)
+	result, err := suite.repository.GetAllTodoRepository(tx)
 	assert.Nil(suite.T(), result)
 	assert.Error(suite.T(), err)
 	assert.Contains(suite.T(), err.Error(), common.ErrDBGetTodo.Error())
