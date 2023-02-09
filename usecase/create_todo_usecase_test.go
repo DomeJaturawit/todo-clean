@@ -80,8 +80,8 @@ func (suite *TestCreateUseCaseTestSuite) Test_Happy() {
 
 	tx := suite.mockGormDB.Begin()
 
-	suite.repositoryMock.On("Begin", appCtx).Return(tx, nil).
-		On("CreateTodoRepository", appCtx, tx, mock.AnythingOfType("domain.CreateTodoEntity")).Return(&mockEntity, nil).
+	suite.repositoryMock.On("Begin").Return(tx, nil).
+		On("CreateTodoRepository", appCtx, tx, mock.AnythingOfType("domain.CreateTodoEntity")).Return(mockEntity, nil).
 		On("Commit", tx).Return(nil)
 
 	result, err := suite.useCase.CreateTodoUseCase(appCtx, suite.request)
@@ -100,7 +100,7 @@ func (suite *TestCreateUseCaseTestSuite) Test_Error_Something_Went_Wrong() {
 
 	expectedError := error_lib.WrapError(common.ErrUseCaseCreateTodo.Error(), common.ErrDBCreateTodoRepo)
 
-	suite.repositoryMock.On("Begin", appCtx).Return(tx, nil).
+	suite.repositoryMock.On("Begin").Return(tx, nil).
 		On("CreateTodoRepository", appCtx, tx, mock.AnythingOfType("domain.CreateTodoEntity")).Return(nil, expectedError).
 		On("Commit").Return(expectedError).On("RollBack").Return(expectedError)
 

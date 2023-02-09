@@ -11,10 +11,10 @@ import (
 
 func (n *newUseCase) CreateTodoUseCase(ctx context.Context, todo domain.CreateTodoEntityRequest) (result *domain.CreateTodoEntity, err error) {
 
-	dbTx, err := n.repo.Begin(ctx)
+	dbTx, err := n.repo.Begin()
 	if err != nil {
 
-		return nil, error_lib.WrapError(common.ErrBeginCreateTodo.Error(), err)
+		return nil, error_lib.WrapError(common.ErrBeginTodo.Error(), err)
 	}
 	result, err = n.repo.CreateTodoRepository(ctx, dbTx, domain.CreateTodoEntity{
 		ID:          uuid.New(),

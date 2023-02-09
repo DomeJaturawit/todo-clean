@@ -14,7 +14,6 @@ func NewHandler(restful *gin.Engine, usecase domain.TodoUseCaseInterface) {
 
 	restfulHandler := newHandler{usecase: usecase}
 
-	//TODO Make it const
 	api := restful.Group(common.APIGroup)
 	{
 		api.POST(common.APITodoCreatPath, restfulHandler.CreateTodoHandler)

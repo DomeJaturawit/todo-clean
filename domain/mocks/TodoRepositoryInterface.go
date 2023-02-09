@@ -16,13 +16,13 @@ type TodoRepositoryInterface struct {
 	mock.Mock
 }
 
-// Begin provides a mock function with given fields: ctx
-func (_m *TodoRepositoryInterface) Begin(ctx context.Context) (*gorm.DB, error) {
-	ret := _m.Called(ctx)
+// Begin provides a mock function with given fields:
+func (_m *TodoRepositoryInterface) Begin() (*gorm.DB, error) {
+	ret := _m.Called()
 
 	var r0 *gorm.DB
-	if rf, ok := ret.Get(0).(func(context.Context) *gorm.DB); ok {
-		r0 = rf(ctx)
+	if rf, ok := ret.Get(0).(func() *gorm.DB); ok {
+		r0 = rf()
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*gorm.DB)
@@ -30,8 +30,8 @@ func (_m *TodoRepositoryInterface) Begin(ctx context.Context) (*gorm.DB, error) 
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context) error); ok {
-		r1 = rf(ctx)
+	if rf, ok := ret.Get(1).(func() error); ok {
+		r1 = rf()
 	} else {
 		r1 = ret.Error(1)
 	}

@@ -13,7 +13,6 @@ import (
 	"testing"
 	"todo-clean/common"
 	"todo-clean/delivery"
-	"todo-clean/domain"
 	"todo-clean/domain/mocks"
 	"todo-clean/lib/error_lib"
 	"todo-clean/util/mockdata"
@@ -27,11 +26,8 @@ type TestCreateDeliveryTestSuite struct {
 	suite.Suite
 	ginEngine *gin.Engine
 
-	handler           domain.TodoUseCaseInterface
-	useCaseMock       *mocks.TodoUseCaseInterface
-	request           domain.CreateTodoEntityRequest
-	createEntityModel domain.CreateTodoEntity
-	res               *httptest.ResponseRecorder
+	useCaseMock *mocks.TodoUseCaseInterface
+	res         *httptest.ResponseRecorder
 }
 
 func (suite *TestCreateDeliveryTestSuite) SetupSuite() {
@@ -60,12 +56,11 @@ func (suite *TestCreateDeliveryTestSuite) Test_Happy() {
 	c, _ := gin.CreateTestContext(suite.res)
 	mockEntity := mockdata.CreateTodoEntityMockData()
 	suite.useCaseMock.On("CreateTodoUseCase", context.Background(), mock.AnythingOfType("domain.CreateTodoEntityRequest")).Return(&mockEntity, nil)
-	//
 	reqBody, err := json.Marshal(mockdata.CreateTodoDeliveryRequestMockData())
 	assert.NoError(suite.T(), err)
-	//
+
 	reader := strings.NewReader(string(reqBody))
-	//
+
 	c.Request, err = http.NewRequest(http.MethodPost, common.APIGroup+common.APITodoCreatPath, reader)
 	assert.NoError(suite.T(), err)
 	suite.ginEngine.ServeHTTP(suite.res, c.Request)
@@ -84,28 +79,30 @@ func (suite *TestCreateDeliveryTestSuite) Test_Error_Bad_Request() {
 	assert.NoError(suite.T(), err)
 
 	reader := strings.NewReader(string(reqBody))
+
 	c.Request, err = http.NewRequest(http.MethodPost, common.APIGroup+common.APITodoCreatPath, reader)
 
 	assert.NoError(suite.T(), err)
 	suite.ginEngine.ServeHTTP(suite.res, c.Request)
+
 	assert.Equal(suite.T(), http.StatusBadRequest, suite.res.Code)
 }
 
-//func (suite *TestCreateDeliveryTestSuite) Test_Error_Something_Went_Wrong2() {
-//	//var err error
-//	//res := httptest.NewRecorder()
-//	//c, _ := gin.CreateTestContext(res)
-//	//
-//	//expectedError := error_lib.WrapError(common.ErrInternal.Error(), err)
-//	//
-//	//suite.useCaseMock.On("CreateTodoUseCase", context.Background(), mock.AnythingOfType("domain.CreateTodoEntityRequest")).Return(nil, expectedError)
-//
-//	//reqBody, err := json.Marshal(mockdata.CreateTodoDeliveryRequestMockData())
-//	//assert.NoError(suite.T(), err)
-//	//reader := strings.NewReader(string(reqBody))
-//
-//	//c.Request, err = http.NewRequest(http.MethodPost, common.APIGroup+common.APITodoCreatPath, reader)
-//	//assert.NoError(suite.T(), err)
-//	//suite.ginEngine.ServeHTTP(res, c.Request)
-//	//assert.Equal(suite.T(), http.StatusInternalServerError, res.Code)
-//}
+func (suite *TestCreateDeliveryTestSuite) Test_Error_Internal_Server() {
+	var err error
+	c, _ := gin.CreateTestContext(suite.res)
+
+	expectedError := error_lib.WrapError(common.ErrInternal.Error(), err)
+
+	suite.useCaseMock.On("CreateTodoUseCase", context.Background(), mock.AnythingOfType("domain.CreateTodoEntityRequest")).Return(nil, expectedError)
+
+	reqBody, err := json.Marshal(mockdata.CreateTodoDeliveryRequestMockData())
+	assert.NoError(suite.T(), err)
+	reader := strings.NewReader(string(reqBody))
+
+	c.Request, err = http.NewRequest(http.MethodPost, common.APIGroup+common.APITodoCreatPath, reader)
+	assert.NoError(suite.T(), err)
+	suite.ginEngine.ServeHTTP(suite.res, c.Request)
+
+	assert.Equal(suite.T(), http.StatusInternalServerError, suite.res.Code)
+}

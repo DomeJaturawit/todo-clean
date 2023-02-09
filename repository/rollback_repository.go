@@ -11,7 +11,7 @@ func (repo newRepo) RollBack(db *gorm.DB) (err error) {
 	err = db.Rollback().Error
 
 	if err != nil {
-		return error_lib.WrapError(common.ErrRollbackCreateTodo.Error(), err)
+		return error_lib.WrapError(common.ErrRollbackTodo.Error(), err)
 	}
 
 	return nil

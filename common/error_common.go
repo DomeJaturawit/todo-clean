@@ -3,11 +3,11 @@ package common
 import "errors"
 
 var (
-	ErrDBCreateTodoRepo   = errors.New("failed to create todo repository in database")
-	ErrDBCreateTodo       = errors.New("failed to create todo repository")
-	ErrBeginCreateTodo    = errors.New("failed to begin create todo repository")
-	ErrCommitCreateTodo   = errors.New("failed to commit create todo repository")
-	ErrRollbackCreateTodo = errors.New("failed to roll back create todo repository")
+	ErrDBCreateTodoRepo = errors.New("failed to create todo repository in database")
+	ErrDBCreateTodo     = errors.New("failed to create todo repository")
+	ErrBeginTodo        = errors.New("failed to begin todo repository")
+	ErrCommitTodo       = errors.New("failed to commit create todo repository")
+	ErrRollbackTodo     = errors.New("failed to roll back create todo repository")
 	//UseCase
 	ErrUseCaseCreateTodo = errors.New("failed to create todo usecase")
 
