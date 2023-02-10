@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"log"
 	"todo-clean/database"
 	"todo-clean/delivery"
 	"todo-clean/repository"
 	"todo-clean/usecase"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
