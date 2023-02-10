@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  database:
+    container_name: database
+    image: postgres
+    restart: "unless-stopped"
+    environment:
+      - POSTGRES_USER=pg
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=crud
+    ports:
+      - '5433:5432'
+  myimage:
+    container_name: myimage
+    build:
+      dockerfile: build/Dockerfile
+    restart: "unless-stopped"
+    environment:
+      - POSTGRES_HOST=localhost
+      - POSTGRES_USER=pg
+      - POSTGRES_PORT=5433
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=crud
+      - POSTGRES_SSL=disable
+    ports:
+      - '8081:8080'
