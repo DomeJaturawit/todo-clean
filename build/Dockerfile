@@ -1,3 +1,4 @@
+#TODO: set docker network
 FROM golang:1.19
 # Set environments
 ENV APPPATH $GOPATH/src/todo-clean
