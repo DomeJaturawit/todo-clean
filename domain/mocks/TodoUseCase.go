@@ -42,42 +42,16 @@ func (_m *TodoUseCase) CreateTodoUseCase(ctx context.Context, entity domain.Crea
 	return r0, r1
 }
 
-// GetAllTodoUseCase provides a mock function with given fields: ctx
-func (_m *TodoUseCase) GetAllTodoUseCase(ctx context.Context) ([]domain.GetTodoEntity, error) {
-	ret := _m.Called(ctx)
-
-	var r0 []domain.GetTodoEntity
-	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context) ([]domain.GetTodoEntity, error)); ok {
-		return rf(ctx)
-	}
-	if rf, ok := ret.Get(0).(func(context.Context) []domain.GetTodoEntity); ok {
-		r0 = rf(ctx)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).([]domain.GetTodoEntity)
-		}
-	}
-
-	if rf, ok := ret.Get(1).(func(context.Context) error); ok {
-		r1 = rf(ctx)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
 // GetTodoUseCase provides a mock function with given fields: ctx, key
-func (_m *TodoUseCase) GetTodoUseCase(ctx context.Context, key uuid.UUID) ([]domain.GetTodoEntity, error) {
+func (_m *TodoUseCase) GetTodoUseCase(ctx context.Context, key *uuid.UUID) ([]domain.GetTodoEntity, error) {
 	ret := _m.Called(ctx, key)
 
 	var r0 []domain.GetTodoEntity
 	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, uuid.UUID) ([]domain.GetTodoEntity, error)); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, *uuid.UUID) ([]domain.GetTodoEntity, error)); ok {
 		return rf(ctx, key)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, uuid.UUID) []domain.GetTodoEntity); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, *uuid.UUID) []domain.GetTodoEntity); ok {
 		r0 = rf(ctx, key)
 	} else {
 		if ret.Get(0) != nil {
@@ -85,7 +59,7 @@ func (_m *TodoUseCase) GetTodoUseCase(ctx context.Context, key uuid.UUID) ([]dom
 		}
 	}
 
-	if rf, ok := ret.Get(1).(func(context.Context, uuid.UUID) error); ok {
+	if rf, ok := ret.Get(1).(func(context.Context, *uuid.UUID) error); ok {
 		r1 = rf(ctx, key)
 	} else {
 		r1 = ret.Error(1)

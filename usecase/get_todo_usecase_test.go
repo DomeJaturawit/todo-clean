@@ -72,9 +72,9 @@ func (suite *TestGetUseCaseTestSuite) TearDownTest() {
 func (suite *TestGetUseCaseTestSuite) Test_Happy() {
 	tx := context.Background()
 	key := suite.mockDataModel[0].ID
-	suite.repositoryMock.On("GetTodoRepository", tx, key).Return(suite.mockDataModel, nil)
+	suite.repositoryMock.On("GetTodoRepository", tx, &key).Return(suite.mockDataModel, nil)
 
-	result, err := suite.useCase.GetTodoUseCase(tx, key)
+	result, err := suite.useCase.GetTodoUseCase(tx, &key)
 
 	assert.Nil(suite.T(), err)
 	assert.NotNil(suite.T(), result)
@@ -84,9 +84,9 @@ func (suite *TestGetUseCaseTestSuite) Test_Happy() {
 func (suite *TestGetUseCaseTestSuite) Test_Error_Something_Went_Wrong() {
 	tx := context.Background()
 	key := suite.mockDataModel[0].ID
-	suite.repositoryMock.On("GetTodoRepository", tx, key).Return(nil, common.ErrGetTodo)
+	suite.repositoryMock.On("GetTodoRepository", tx, &key).Return(nil, common.ErrGetTodo)
 
-	result, err := suite.useCase.GetTodoUseCase(tx, suite.mockDataModel[0].ID)
+	result, err := suite.useCase.GetTodoUseCase(tx, &suite.mockDataModel[0].ID)
 
 	assert.Nil(suite.T(), result)
 	assert.Error(suite.T(), err)

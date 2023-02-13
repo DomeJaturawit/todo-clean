@@ -29,6 +29,6 @@ func main() {
 	//
 	err = engine.Run("localhost:8080")
 	if err != nil {
-		log.Panicln("failed to run", err)
+		log.Fatalln("failed to run", err)
 	}
 }

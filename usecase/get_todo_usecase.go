@@ -8,11 +8,18 @@ import (
 	"todo-clean/lib/errorLib"
 )
 
-func (n *newUseCase) GetTodoUseCase(ctx context.Context, key uuid.UUID) (result []domain.GetTodoEntity, err error) {
+func (n *newUseCase) GetTodoUseCase(ctx context.Context, key *uuid.UUID) (result []domain.GetTodoEntity, err error) {
 
-	result, err = n.repo.GetTodoRepository(ctx, key)
-	if err != nil {
-		return nil, errorLib.WrapError(common.ErrGetAllTodo.Error(), err)
+	if key != nil {
+		result, err = n.repo.GetTodoRepository(ctx, key)
+		if err != nil {
+			return nil, errorLib.WrapError(common.ErrGetAllTodo.Error(), err)
+		}
+	} else {
+		result, err = n.repo.GetTodoRepository(ctx, nil)
+		if err != nil {
+			return nil, errorLib.WrapError(common.ErrGetAllTodo.Error(), err)
+		}
 	}
 
 	return
