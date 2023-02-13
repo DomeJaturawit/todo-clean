@@ -33,6 +33,9 @@ func (repo newRepo) GetTodoRepository(ctx context.Context, key *uuid.UUID) (resu
 			return nil, errorLib.WrapError(common.ErrCopierCopy.Error(), err)
 		}
 	}
+
+	//TODO: Check Data Array Empty
+
 	return
 }
 

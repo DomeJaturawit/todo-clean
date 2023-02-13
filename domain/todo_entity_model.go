@@ -35,6 +35,10 @@ type GetTodoEntity struct {
 	CreatedAt   time.Time `json:"created_at" gorm:"column:createdAt"`
 }
 
+type GetOneTodoEntity struct {
+	ID uuid.UUID `json:"id" gorm:"column:id"`
+}
+
 func NewGetTodoEntity(ID uuid.UUID, title string, description string, status string, createdAt time.Time) GetTodoEntity {
 	return GetTodoEntity{ID: ID, Title: title, Description: description, Status: status, CreatedAt: createdAt}
 }

@@ -13,6 +13,8 @@ var (
 
 	ErrGetAllTodo = errors.New("failed to get all todo repository")
 	ErrGetTodo    = errors.New("failed to get todo repository")
+
+	ErrDataNotFound = errors.New("data not found")
 	//UseCase
 	ErrUseCaseCreateTodo = errors.New("failed to create todo usecase")
 
