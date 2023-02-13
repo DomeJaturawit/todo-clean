@@ -26,7 +26,7 @@ func (repo newRepo) GetTodoRepository(ctx context.Context, key uuid.UUID) (resp 
 		return nil, errorLib.WrapError(common.ErrCopierCopy.Error(), err)
 	}
 
-	return resp, nil
+	return resp, err
 }
 
 func getTodoQueryCondition(db *gorm.DB, key uuid.UUID) *gorm.DB {
