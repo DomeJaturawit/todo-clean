@@ -19,7 +19,7 @@ func (h newHandler) CreateTodoHandler(ctx *gin.Context) {
 		return
 	}
 
-	if err := errorLib.CheckEmptyStringCreateTodoRequest(req); err != nil {
+	if err := errorLib.CheckEmptyInput(req); err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, model.GinResponseError{
 			Title: common.ErrFormat.Error(),
 			Error: err.Error(),

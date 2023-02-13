@@ -12,20 +12,24 @@ func (h newHandler) GetTodoDelivery(ctx *gin.Context) {
 
 	key := ctx.Param("id")
 
-	//TODO: Check ID Format
-	id, _ := uuid.Parse(key)
-
 	if key != "" {
+		id, err := uuid.Parse(key)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, model.GinResponseError{
+				Title: common.ErrFormat.Error(),
+				Error: err.Error(),
+			})
+		}
 		response, err := h.usecase.GetTodoUseCase(ctx, &id)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusInternalServerError, model.GinResponseError{
-				Title: common.ErrInternal.Error(),
+			ctx.AbortWithStatusJSON(http.StatusNotFound, model.GinResponseError{
+				Title: common.ErrDataNotFound.Error(),
 				Error: err.Error(),
 			})
 
+		} else {
+			ctx.JSON(http.StatusOK, response)
 		}
-
-		ctx.JSON(http.StatusOK, response)
 
 	} else {
 		response, err := h.usecase.GetTodoUseCase(ctx, nil)

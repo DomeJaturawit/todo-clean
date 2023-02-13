@@ -2,6 +2,7 @@ package errorLib
 
 import (
 	"fmt"
+	"github.com/go-playground/validator/v10"
 	"todo-clean/common"
 	"todo-clean/delivery/model"
 )
@@ -11,18 +12,25 @@ func WrapError(input string, inputErr error) (err error) {
 	return err
 }
 
-// TODO: can use package "github.com/go-playground/validator/v10" for input validation
-func CheckEmptyStringCreateTodoRequest(input model.CreateTodoDeliveryRequest) (err error) {
+func CheckEmptyInput(input model.CreateTodoDeliveryRequest) (err error) {
 
-	if input.Title == "" {
-		return common.ErrTitleEmpty
+	validate := validator.New()
 
-	} else if input.Status == "" {
-		return common.ErrStatusEmpty
+	err = validate.Struct(input)
 
-	} else if input.Description == "" {
-		return common.ErrDescriptionEmpty
+	if err == nil {
+		return
+	}
 
+	validationErr, ok := err.(validator.ValidationErrors)
+	if !ok {
+
+		return common.ErrFormat
+	}
+
+	for _, vErr := range validationErr {
+		err := fmt.Errorf("%s has a value of '%v' ", vErr.Field(), vErr.Value())
+		return err
 	}
 
 	return nil

@@ -34,9 +34,12 @@ func (repo newRepo) GetTodoRepository(ctx context.Context, key *uuid.UUID) (resu
 		}
 	}
 
-	//TODO: Check Data Array Empty
+	if len(result) == 0 {
 
-	return
+		return nil, common.ErrDataNotFound
+	}
+
+	return result, nil
 }
 
 func getTodoQueryCondition(db *gorm.DB, key *uuid.UUID) *gorm.DB {

@@ -3,9 +3,9 @@ package model
 import "github.com/google/uuid"
 
 type CreateTodoDeliveryRequest struct {
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	Status      string `json:"status"`
+	Title       string `json:"title" validate:"required"`
+	Description string `json:"description" validate:"required"`
+	Status      string `json:"status" validate:"required"`
 }
 
 type GetTodoDeliveryRequest struct {
