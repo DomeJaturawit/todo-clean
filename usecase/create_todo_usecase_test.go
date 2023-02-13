@@ -14,7 +14,7 @@ import (
 	"todo-clean/common"
 	"todo-clean/domain"
 	"todo-clean/domain/mocks"
-	"todo-clean/lib/error_lib"
+	"todo-clean/lib/errorLib"
 	"todo-clean/usecase"
 	"todo-clean/util/mockdata"
 )
@@ -30,11 +30,11 @@ type TestCreateUseCaseTestSuite struct {
 	sqlMockDB  *sql.DB
 	mockGormDB *gorm.DB
 
-	repositoryMock *mocks.TodoRepositoryInterface
-	useCase        domain.TodoUseCaseInterface
+	repositoryMock *mocks.TodoRepository
+	useCase        domain.TodoUseCase
 
 	createEntityModel domain.CreateTodoEntity
-	request           domain.CreateTodoEntityRequest
+	request           domain.CreateTodoInputEntity
 }
 
 func (suite *TestCreateUseCaseTestSuite) SetupSuite() {
@@ -61,7 +61,7 @@ func (suite *TestCreateUseCaseTestSuite) SetupTest() {
 	}), &gorm.Config{})
 	assert.NoError(suite.T(), err)
 
-	suite.repositoryMock = new(mocks.TodoRepositoryInterface)
+	suite.repositoryMock = new(mocks.TodoRepository)
 	suite.useCase = usecase.NewUseCase(suite.repositoryMock)
 
 	suite.request = *mockdata.CreateTodoEntityRequestMockData()
@@ -98,7 +98,7 @@ func (suite *TestCreateUseCaseTestSuite) Test_Error_Something_Went_Wrong() {
 	appCtx := context.Background()
 	tx := suite.mockGormDB.Begin()
 
-	expectedError := error_lib.WrapError(common.ErrUseCaseCreateTodo.Error(), common.ErrDBCreateTodoRepo)
+	expectedError := errorLib.WrapError(common.ErrUseCaseCreateTodo.Error(), common.ErrDBCreateTodoRepo)
 
 	suite.repositoryMock.On("Begin").Return(tx, nil).
 		On("CreateTodoRepository", appCtx, tx, mock.AnythingOfType("domain.CreateTodoEntity")).Return(nil, expectedError).

@@ -7,7 +7,7 @@ import (
 )
 
 type TbTodoRepositoryModel struct {
-	ID          uuid.UUID `json:"id" gorm:"primary_kry"`
+	ID          uuid.UUID `json:"id" gorm:"primary_key"`
 	Title       string    `json:"title"`
 	Description string    `json:"description"`
 	Status      string    `json:"status"`

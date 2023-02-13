@@ -5,7 +5,7 @@ import (
 	"gorm.io/gorm"
 	"todo-clean/common"
 	"todo-clean/domain"
-	"todo-clean/lib/error_lib"
+	"todo-clean/lib/errorLib"
 	"todo-clean/repository/model"
 )
 
@@ -21,7 +21,7 @@ func (repo newRepo) CreateTodoRepository(ctx context.Context, db *gorm.DB, todo 
 
 	if err = db.WithContext(ctx).Create(input).Error; err != nil {
 
-		return resp, error_lib.WrapError(common.ErrDBCreateTodo.Error(), err)
+		return resp, errorLib.WrapError(common.ErrDBCreateTodo.Error(), err)
 	}
 
 	resp = &domain.CreateTodoEntity{

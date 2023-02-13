@@ -17,8 +17,8 @@ var (
 )
 
 // Mock Request  usecase
-func CreateTodoEntityRequestMockData() *domain.CreateTodoEntityRequest {
-	return domain.NewCreateTodoEntityRequest(
+func CreateTodoEntityRequestMockData() *domain.CreateTodoInputEntity {
+	return domain.NewCreateTodoInputEntity(
 		mockTitle,
 		mockDescription,
 		mockStatus,

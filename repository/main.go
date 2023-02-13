@@ -9,7 +9,7 @@ type newRepo struct {
 	db *gorm.DB
 }
 
-func NewRepository(db *gorm.DB) domain.TodoRepositoryInterface {
+func NewRepository(db *gorm.DB) domain.TodoRepository {
 	return &newRepo{db: db}
 
 }

@@ -4,6 +4,6 @@ import (
 	"context"
 )
 
-type TodoUseCaseInterface interface {
-	CreateTodoUseCase(ctx context.Context, todo CreateTodoEntityRequest) (result *CreateTodoEntity, err error)
+type TodoUseCase interface {
+	CreateTodoUseCase(ctx context.Context, entity CreateTodoInputEntity) (result *CreateTodoEntity, err error)
 }

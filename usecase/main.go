@@ -5,9 +5,9 @@ import (
 )
 
 type newUseCase struct {
-	repo domain.TodoRepositoryInterface
+	repo domain.TodoRepository
 }
 
-func NewUseCase(repo domain.TodoRepositoryInterface) domain.TodoUseCaseInterface {
+func NewUseCase(repo domain.TodoRepository) domain.TodoUseCase {
 	return &newUseCase{repo: repo}
 }

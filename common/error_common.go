@@ -8,6 +8,8 @@ var (
 	ErrBeginTodo        = errors.New("failed to begin todo repository")
 	ErrCommitTodo       = errors.New("failed to commit create todo repository")
 	ErrRollbackTodo     = errors.New("failed to roll back create todo repository")
+
+	ErrDBGetTodo = errors.New("failed to get todo repository")
 	//UseCase
 	ErrUseCaseCreateTodo = errors.New("failed to create todo usecase")
 
@@ -19,4 +21,6 @@ var (
 	ErrFormat     = errors.New("invalid input format")
 	ErrInternal   = errors.New("internal server error")
 	ErrBadRequest = errors.New("bad request")
+
+	ErrCopierCopy = errors.New("failed to copier copy")
 )

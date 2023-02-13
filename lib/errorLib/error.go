@@ -1,4 +1,4 @@
-package error_lib
+package errorLib
 
 import (
 	"fmt"
@@ -11,6 +11,7 @@ func WrapError(input string, inputErr error) (err error) {
 	return err
 }
 
+// TODO: can use package "github.com/go-playground/validator/v10" for input validation
 func CheckEmptyStringCreateTodoRequest(input model.CreateTodoDeliveryRequest) (err error) {
 
 	if input.Title == "" {
