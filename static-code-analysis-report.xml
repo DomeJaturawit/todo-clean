@@ -1,3 +1,0 @@
-cmd/main.go:17:2: a declared but not used (typecheck)
-	a := ""
-	^
