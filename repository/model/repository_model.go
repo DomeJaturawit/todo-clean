@@ -12,10 +12,8 @@ type TbTodoRepositoryCreateModel struct {
 	Description string    `json:"description"`
 	Status      string    `json:"status"`
 	CreatedAt   time.Time `json:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at"`
 }
 
-// TODO: what fields should be in update model
 type TbTodoRepositoryUpdateModel struct {
 	Title       string    `json:"title" gorm:"column:title"`
 	Description string    `json:"description" gorm:"column:description"`
