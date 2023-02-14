@@ -15,13 +15,13 @@ func WrapError(input string, inputErr error) (err error) {
 func CheckEmptyStringCreateTodoRequest(input model.CreateTodoDeliveryRequest) (err error) {
 
 	if input.Title == "" {
-		return WrapError(common.ErrTitleEmpty.Error(), err)
+		return common.ErrTitleEmpty
 
 	} else if input.Status == "" {
-		return WrapError(common.ErrStatusEmpty.Error(), err)
+		return common.ErrStatusEmpty
 
 	} else if input.Description == "" {
-		return WrapError(common.ErrDescriptionEmpty.Error(), err)
+		return common.ErrDescriptionEmpty
 
 	}
 

@@ -9,7 +9,10 @@ var (
 	ErrCommitTodo       = errors.New("failed to commit create todo repository")
 	ErrRollbackTodo     = errors.New("failed to roll back create todo repository")
 
-	ErrDBGetTodo = errors.New("failed to get todo repository")
+	ErrDBGetTodo = errors.New("failed to get todo database repository")
+
+	ErrGetAllTodo = errors.New("failed to get all todo repository")
+	ErrGetTodo    = errors.New("failed to get todo repository")
 	//UseCase
 	ErrUseCaseCreateTodo = errors.New("failed to create todo usecase")
 

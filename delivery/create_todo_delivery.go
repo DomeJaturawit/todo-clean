@@ -9,9 +9,10 @@ import (
 	"todo-clean/lib/errorLib"
 )
 
+// TODO: Move to /model
 type GinResponseError struct {
 	Title string `json:"title"`
-	Error error  `json:"error"`
+	Error string `json:"error"`
 }
 
 func (h newHandler) CreateTodoHandler(ctx *gin.Context) {
@@ -19,15 +20,17 @@ func (h newHandler) CreateTodoHandler(ctx *gin.Context) {
 	if err := ctx.BindJSON(&req); err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, GinResponseError{
 			Title: common.ErrFormat.Error(),
-			Error: err,
+			Error: err.Error(),
 		})
+		return
 	}
 
 	if err := errorLib.CheckEmptyStringCreateTodoRequest(req); err != nil {
-		ctx.AbortWithStatusJSON(http.StatusInternalServerError, GinResponseError{
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, GinResponseError{
 			Title: common.ErrFormat.Error(),
-			Error: err,
+			Error: err.Error(),
 		})
+		return
 	}
 
 	todo := domain.CreateTodoInputEntity{
@@ -41,8 +44,9 @@ func (h newHandler) CreateTodoHandler(ctx *gin.Context) {
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, GinResponseError{
 			Title: common.ErrInternal.Error(),
-			Error: err,
+			Error: err.Error(),
 		})
+		return
 	}
 
 	ctx.JSON(http.StatusCreated, resp)
