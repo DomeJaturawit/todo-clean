@@ -33,7 +33,13 @@ func (repo newRepo) GetTodoRepository(ctx context.Context, key *uuid.UUID) (resu
 			return nil, errorLib.WrapError(common.ErrCopierCopy.Error(), err)
 		}
 	}
-	return
+
+	if len(result) == 0 {
+
+		return nil, common.ErrDataNotFound
+	}
+
+	return result, nil
 }
 
 func getTodoQueryCondition(db *gorm.DB, key *uuid.UUID) *gorm.DB {

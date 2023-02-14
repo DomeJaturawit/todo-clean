@@ -12,8 +12,9 @@ func (n *newUseCase) GetTodoUseCase(ctx context.Context, key *uuid.UUID) (result
 
 	if key != nil {
 		result, err = n.repo.GetTodoRepository(ctx, key)
+
 		if err != nil {
-			return nil, errorLib.WrapError(common.ErrGetAllTodo.Error(), err)
+			return nil, errorLib.WrapError(common.ErrGetTodo.Error(), err)
 		}
 	} else {
 		result, err = n.repo.GetTodoRepository(ctx, nil)
