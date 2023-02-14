@@ -14,6 +14,7 @@ var (
 	mockStatus      = NewString()
 	mockID          = uuid.New()
 	mockCreatedAt   = time.Now()
+	mockUpdateAt    = time.Now()
 )
 
 // Mock Request  usecase

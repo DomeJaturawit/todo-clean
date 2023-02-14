@@ -26,7 +26,7 @@ func ConnectDB() (client *gorm.DB, err error) {
 
 func MigrateDB(dbConn *gorm.DB) (err error) {
 	err = dbConn.AutoMigrate(
-		&model.TbTodoRepositoryModel{},
+		&model.TbTodoRepositoryCreateModel{},
 	)
 	if err != nil {
 		log.Fatal(err)

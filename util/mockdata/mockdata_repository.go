@@ -26,3 +26,19 @@ func GetTodoEntityMockData() domain.GetTodoEntity {
 		mockCreatedAt,
 	)
 }
+
+func UpdateTodoEntityMockData() domain.UpdateTodoEntity {
+	return domain.NewUpdateTodoEntity(
+		mockTitle,
+		mockDescription,
+		mockStatus,
+		mockUpdateAt,
+	)
+}
+
+func QueryUpdateTodoEntityMockData() domain.QueryUpdateTodoEntity {
+	return domain.NewQueryUpdateTodoEntity(
+		mockID,
+
+	)
+}

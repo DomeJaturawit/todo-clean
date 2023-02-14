@@ -13,7 +13,7 @@ import (
 )
 
 func (repo newRepo) GetTodoRepository(ctx context.Context, key *uuid.UUID) (result []domain.GetTodoEntity, err error) {
-	var todos []model.TbTodoRepositoryModel
+	var todos []model.TbTodoRepositoryGetModel
 	db := repo.db
 	if key != nil {
 		db = getTodoQueryCondition(db, key)
