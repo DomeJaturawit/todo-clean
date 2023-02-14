@@ -18,6 +18,7 @@ var (
 	ErrDataNotFound = errors.New("data not found")
 	//UseCase
 	ErrUseCaseCreateTodo = errors.New("failed to create todo usecase")
+	ErrUseCaseUpdateTodo = errors.New("failed to update todo usecase")
 
 	//Dalivery
 	ErrTitleEmpty       = errors.New("error input title is empty")

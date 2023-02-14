@@ -91,7 +91,7 @@ func (suite *TestCreateUseCaseTestSuite) Test_Happy() {
 	assert.Equal(suite.T(), suite.createEntityModel.Title, result.Title)
 	assert.Equal(suite.T(), suite.createEntityModel.Status, result.Status)
 	assert.Equal(suite.T(), suite.createEntityModel.Description, result.Description)
-	assert.WithinDuration(suite.T(), suite.createEntityModel.CreatedAt, suite.createEntityModel.CreatedAt, time.Second)
+	assert.WithinDuration(suite.T(), suite.createEntityModel.CreatedAt, result.CreatedAt, time.Second)
 }
 
 func (suite *TestCreateUseCaseTestSuite) Test_Error_Something_Went_Wrong() {

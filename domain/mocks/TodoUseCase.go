@@ -68,6 +68,32 @@ func (_m *TodoUseCase) GetTodoUseCase(ctx context.Context, key *uuid.UUID) ([]do
 	return r0, r1
 }
 
+// UpdateTodoUseCase provides a mock function with given fields: ctx, queryEntity, entity
+func (_m *TodoUseCase) UpdateTodoUseCase(ctx context.Context, queryEntity domain.QueryUpdateTodoEntity, entity domain.UpdateTodoEntity) (*domain.UpdateTodoEntity, error) {
+	ret := _m.Called(ctx, queryEntity, entity)
+
+	var r0 *domain.UpdateTodoEntity
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, domain.QueryUpdateTodoEntity, domain.UpdateTodoEntity) (*domain.UpdateTodoEntity, error)); ok {
+		return rf(ctx, queryEntity, entity)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, domain.QueryUpdateTodoEntity, domain.UpdateTodoEntity) *domain.UpdateTodoEntity); ok {
+		r0 = rf(ctx, queryEntity, entity)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*domain.UpdateTodoEntity)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, domain.QueryUpdateTodoEntity, domain.UpdateTodoEntity) error); ok {
+		r1 = rf(ctx, queryEntity, entity)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 type mockConstructorTestingTNewTodoUseCase interface {
 	mock.TestingT
 	Cleanup(func())
