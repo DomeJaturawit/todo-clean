@@ -7,6 +7,7 @@ const (
 	TodoDescriptionCol = "description"
 	TodoStatusCol      = "status"
 	TodoCreatedAtCol   = "created_at"
+	TodoUpdatedAtCol   = "updated_at"
 
 	PostgresHost     = "POSTGRES_HOST"
 	PostgresUser     = "POSTGRES_USER"

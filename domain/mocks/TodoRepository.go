@@ -124,6 +124,32 @@ func (_m *TodoRepository) RollBack(tx *gorm.DB) error {
 	return r0
 }
 
+// UpdateTodoRepository provides a mock function with given fields: ctx, db, query, entity
+func (_m *TodoRepository) UpdateTodoRepository(ctx context.Context, db *gorm.DB, query domain.QueryUpdateTodoEntity, entity domain.UpdateTodoEntity) (*domain.UpdateTodoEntity, error) {
+	ret := _m.Called(ctx, db, query, entity)
+
+	var r0 *domain.UpdateTodoEntity
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, *gorm.DB, domain.QueryUpdateTodoEntity, domain.UpdateTodoEntity) (*domain.UpdateTodoEntity, error)); ok {
+		return rf(ctx, db, query, entity)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, *gorm.DB, domain.QueryUpdateTodoEntity, domain.UpdateTodoEntity) *domain.UpdateTodoEntity); ok {
+		r0 = rf(ctx, db, query, entity)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*domain.UpdateTodoEntity)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, *gorm.DB, domain.QueryUpdateTodoEntity, domain.UpdateTodoEntity) error); ok {
+		r1 = rf(ctx, db, query, entity)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 type mockConstructorTestingTNewTodoRepository interface {
 	mock.TestingT
 	Cleanup(func())

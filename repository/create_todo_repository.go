@@ -11,7 +11,7 @@ import (
 
 func (repo newRepo) CreateTodoRepository(ctx context.Context, db *gorm.DB, todo domain.CreateTodoEntity) (resp *domain.CreateTodoEntity, err error) {
 
-	input := model.TbTodoRepositoryModel{
+	input := model.TbTodoRepositoryCreateModel{
 		ID:          todo.ID,
 		Title:       todo.Title,
 		Description: todo.Description,
