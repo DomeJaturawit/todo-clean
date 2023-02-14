@@ -2,7 +2,8 @@ package common
 
 const (
 	APIGroup          = "/api/v1"
-	APITodoCreatPath  = "/todo"
-	APITodoGetPath    = "/todo/:id"
-	APIAllTodoGetPath = "/todo/"
+	APICreatTodoPath  = "/todo"
+	APIGetTodoPath    = "/todo/:id"
+	APIGetAllTodoPath = "/todo/"
+	APIUpdateTodoPath = "/todo/:id"
 )
