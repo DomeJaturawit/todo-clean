@@ -9,7 +9,6 @@ import (
 	"todo-clean/repository/model"
 )
 
-//TODO CHECK EMPTY VALUE
 func (repo newRepo) CreateTodoRepository(ctx context.Context, db *gorm.DB, todo domain.CreateTodoEntity) (resp *domain.CreateTodoEntity, err error) {
 
 	input := model.TbTodoRepositoryModel{
