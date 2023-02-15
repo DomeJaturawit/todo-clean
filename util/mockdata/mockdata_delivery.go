@@ -11,3 +11,11 @@ func CreateTodoDeliveryRequestMockData() *model.CreateTodoDeliveryRequest {
 		mockStatus,
 	)
 }
+
+func UpdateTodoDeliveryRequestMockData() *model.UpdateTodoDeliveryRequest {
+	return model.NewUpdateTodoDeliveryRequest(
+		mockTitle,
+		mockDescription,
+		mockStatus,
+	)
+}

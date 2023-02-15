@@ -15,9 +15,9 @@ type TbTodoRepositoryCreateModel struct {
 }
 
 type TbTodoRepositoryUpdateModel struct {
-	Title       string    `json:"title" gorm:"column:title;omitempty"`
-	Description string    `json:"description" gorm:"column:description;omitempty"`
-	Status      string    `json:"status" gorm:"column:status;omitempty"`
+	Title       *string   `json:"title" gorm:"column:title;omitempty"`
+	Description *string   `json:"description" gorm:"column:description;omitempty"`
+	Status      *string   `json:"status" gorm:"column:status;omitempty"`
 	UpdatedAt   time.Time `json:"updated_at" gorm:"column:updated_at"`
 }
 

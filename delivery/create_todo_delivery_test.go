@@ -61,7 +61,7 @@ func (suite *TestCreateDeliveryTestSuite) Test_Happy() {
 
 	reader := strings.NewReader(string(reqBody))
 
-	c.Request, err = http.NewRequest(http.MethodPost, common.APIGroup+common.APITodoCreatPath, reader)
+	c.Request, err = http.NewRequest(http.MethodPost, common.APIGroup+common.APICreatTodoPath, reader)
 	assert.NoError(suite.T(), err)
 	suite.ginEngine.ServeHTTP(suite.res, c.Request)
 	assert.Equal(suite.T(), http.StatusCreated, suite.res.Code)
@@ -80,7 +80,7 @@ func (suite *TestCreateDeliveryTestSuite) Test_Error_Bad_Request() {
 
 	reader := strings.NewReader(string(reqBody))
 
-	c.Request, err = http.NewRequest(http.MethodPost, common.APIGroup+common.APITodoCreatPath, reader)
+	c.Request, err = http.NewRequest(http.MethodPost, common.APIGroup+common.APICreatTodoPath, reader)
 
 	assert.NoError(suite.T(), err)
 	suite.ginEngine.ServeHTTP(suite.res, c.Request)
@@ -100,7 +100,7 @@ func (suite *TestCreateDeliveryTestSuite) Test_Error_Internal_Server() {
 	assert.NoError(suite.T(), err)
 	reader := strings.NewReader(string(reqBody))
 
-	c.Request, err = http.NewRequest(http.MethodPost, common.APIGroup+common.APITodoCreatPath, reader)
+	c.Request, err = http.NewRequest(http.MethodPost, common.APIGroup+common.APICreatTodoPath, reader)
 	assert.NoError(suite.T(), err)
 	suite.ginEngine.ServeHTTP(suite.res, c.Request)
 
