@@ -10,6 +10,7 @@ import (
 )
 
 // TODO: Fix Bug Send Empty Field Response "" But Not Keep Empty Data To DB
+// TODO: Fix Bug Error
 func (h newHandler) UpdateTodoHandler(ctx *gin.Context) {
 	key := ctx.Param("id")
 	request := new(model.UpdateTodoDeliveryRequest)
