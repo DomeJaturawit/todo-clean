@@ -8,7 +8,7 @@ import (
 	"todo-clean/lib/errorLib"
 )
 
-func (n *newUseCase) UpdateTodoUseCase(ctx context.Context, queryEntity domain.QueryUpdateTodoEntity, entity domain.UpdateTodoEntity) (result *domain.UpdateTodoEntity, err error) {
+func (n *newUseCase) UpdateTodoUseCase(ctx context.Context, queryEntity domain.UpdateTodoQueryEntity, entity domain.UpdateTodoEntity) (result *domain.UpdateTodoEntity, err error) {
 
 	response, err := n.repo.GetTodoRepository(ctx, &queryEntity.ID)
 	if len(response) == 0 {
