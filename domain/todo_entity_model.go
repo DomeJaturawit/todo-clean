@@ -35,10 +35,6 @@ type GetTodoEntity struct {
 	CreatedAt   time.Time `json:"created_at" gorm:"column:createdAt"`
 }
 
-type GetOneTodoEntity struct {
-	ID uuid.UUID `json:"id" gorm:"column:id"`
-}
-
 func NewGetTodoEntity(ID uuid.UUID, title string, description string, status string, createdAt time.Time) GetTodoEntity {
 	return GetTodoEntity{ID: ID, Title: title, Description: description, Status: status, CreatedAt: createdAt}
 }
@@ -54,10 +50,12 @@ func NewUpdateTodoEntity(title string, description string, status string, update
 	return UpdateTodoEntity{Title: title, Description: description, Status: status, UpdatedAt: updatedAt}
 }
 
-type QueryUpdateTodoEntity struct {
+
+type UpdateTodoQueryEntity struct {
 	ID uuid.UUID `json:"id" gorm:"primary_key"`
 }
 
-func NewQueryUpdateTodoEntity(ID uuid.UUID) QueryUpdateTodoEntity {
-	return QueryUpdateTodoEntity{ID: ID}
+func NewQueryUpdateTodoEntity(ID uuid.UUID) UpdateTodoQueryEntity {
+	return UpdateTodoQueryEntity{ID: ID}
+
 }

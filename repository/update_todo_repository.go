@@ -11,7 +11,8 @@ import (
 	"todo-clean/repository/model"
 )
 
-func (repo newRepo) UpdateTodoRepository(ctx context.Context, db *gorm.DB, queryEntity domain.QueryUpdateTodoEntity, entity domain.UpdateTodoEntity) (result *domain.UpdateTodoEntity, err error) {
+func (repo newRepo) UpdateTodoRepository(ctx context.Context, db *gorm.DB, queryEntity domain.UpdateTodoQueryEntity, entity domain.UpdateTodoEntity) (result *domain.UpdateTodoEntity, err error) {
+
 
 	todoModel := new(model.TbTodoRepositoryUpdateModel)
 
