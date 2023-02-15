@@ -17,4 +17,6 @@ const (
 	PostgresPort     = "POSTGRES_PORT"
 	PostgresDB       = "POSTGRES_DB"
 	PostgresSSL      = "POSTGRES_SSL"
+
+	DeleteSuccess = "deleted success"
 )

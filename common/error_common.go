@@ -22,6 +22,8 @@ var (
 	ErrUseCaseCreateTodo = errors.New("failed to create todo usecase")
 	ErrUseCaseUpdateTodo = errors.New("failed to update todo usecase")
 
+	ErrUseCaseDeleteTodo = errors.New("failed to delete todo usecase")
+
 	//Dalivery
 	ErrTitleEmpty       = errors.New("error input title is empty")
 	ErrStatusEmpty      = errors.New("error input status is empty")

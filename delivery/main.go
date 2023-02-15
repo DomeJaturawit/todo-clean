@@ -20,5 +20,6 @@ func NewHandler(restful *gin.Engine, usecase domain.TodoUseCase) {
 		api.GET(common.APIGetTodoPath, restfulHandler.GetTodoDelivery)
 		api.GET(common.APIGetAllTodoPath, restfulHandler.GetTodoDelivery)
 		api.PATCH(common.APIUpdateTodoPath, restfulHandler.UpdateTodoHandler)
+		api.DELETE(common.APIDeleteTodoPath, restfulHandler.DeleteTodoHandler)
 	}
 }

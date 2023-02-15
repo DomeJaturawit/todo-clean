@@ -11,5 +11,4 @@ type newRepo struct {
 
 func NewRepository(db *gorm.DB) domain.TodoRepository {
 	return &newRepo{db: db}
-
 }

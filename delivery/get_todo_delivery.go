@@ -9,7 +9,6 @@ import (
 )
 
 func (h newHandler) GetTodoDelivery(ctx *gin.Context) {
-
 	key := ctx.Param("id")
 
 	if key != "" {

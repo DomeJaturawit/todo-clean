@@ -2,11 +2,18 @@ package model
 
 import (
 	"github.com/google/uuid"
-	"gorm.io/plugin/soft_delete"
 	"time"
 	"todo-clean/common"
 )
 
+type TbTodoTableSchema struct {
+	ID          uuid.UUID `json:"id" gorm:"primary_key"`
+	Title       string    `json:"title" gorm:"column:title"`
+	Description string    `json:"description" gorm:"column:description"`
+	Status      string    `json:"status" gorm:"column:status"`
+	CreatedAt   time.Time `json:"created_at" gorm:"column:created_at"`
+	UpdatedAt   time.Time `json:"updated_at" gorm:"column:updated_at"`
+}
 type TbTodoRepositoryCreateModel struct {
 	ID          uuid.UUID `json:"id" gorm:"primary_key"`
 	Title       string    `json:"title"`
@@ -31,11 +38,10 @@ type TbTodoRepositoryGetModel struct {
 }
 
 type TbTodoRepositoryDeleteModel struct {
-	ID          uuid.UUID             `json:"id" gorm:"primary_key"`
-	Title       string                `json:"title"`
-	Description string                `json:"description"`
-	Status      string                `json:"status"`
-	DeletedAt   soft_delete.DeletedAt `json:"deleted_at"`
+	ID          uuid.UUID `json:"id" gorm:"primary_key"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
+	Status      string    `json:"status"`
 }
 
 func (TbTodoRepositoryCreateModel) TableName() string {
@@ -49,5 +55,9 @@ func (TbTodoRepositoryGetModel) TableName() string {
 }
 
 func (TbTodoRepositoryDeleteModel) TableName() string {
+	return common.TodoTable
+}
+
+func (TbTodoTableSchema) TableName() string {
 	return common.TodoTable
 }

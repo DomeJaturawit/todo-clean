@@ -6,5 +6,6 @@ const (
 	APIGetTodoPath        = "/todo/:id"
 	APIGetAllTodoPath     = "/todo/"
 	APIUpdateTodoPath     = "/todo/:id"
+	APIDeleteTodoPath     = "/todo/:id"
 	APIUpdateTodoTestPath = "/todo/"
 )

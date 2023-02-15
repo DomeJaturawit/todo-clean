@@ -8,6 +8,7 @@ import (
 	"todo-clean/repository/model"
 )
 
+// TODO: use viper package
 func ConnectDB() (client *gorm.DB, err error) {
 	//TODO: Use ENV
 	dsn := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=%s", "localhost", "5433", "pg", "crud", "pass", "disable")
@@ -26,7 +27,7 @@ func ConnectDB() (client *gorm.DB, err error) {
 
 func MigrateDB(dbConn *gorm.DB) (err error) {
 	err = dbConn.AutoMigrate(
-		&model.TbTodoRepositoryCreateModel{},
+		&model.TbTodoTableSchema{},
 	)
 	if err != nil {
 		log.Fatal(err)

@@ -30,3 +30,8 @@ type GinResponseError struct {
 func NewCreateTodoDeliveryRequest(title string, description string, status string) *CreateTodoDeliveryRequest {
 	return &CreateTodoDeliveryRequest{Title: title, Description: description, Status: status}
 }
+
+type GinDeleteResponse struct {
+	ID     uuid.UUID `json:"id"`
+	Status string    `json:"status"`
+}

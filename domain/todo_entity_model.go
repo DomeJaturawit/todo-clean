@@ -2,7 +2,6 @@ package domain
 
 import (
 	"github.com/google/uuid"
-	"gorm.io/plugin/soft_delete"
 	"time"
 )
 
@@ -68,8 +67,7 @@ func NewDeleteTodoQueryEntity(ID uuid.UUID) DeleteTodoQueryEntity {
 }
 
 type DeleteTodoEntity struct {
-	Title       string                `json:"title" gorm:"column:title"`
-	Description string                `json:"description" gorm:"column:description"`
-	Status      string                `json:"status" gorm:"column:status"`
-	DeletedAt   soft_delete.DeletedAt `json:"deleted_at" gorm:"column:deleted_at"`
+	Title       string `json:"title" gorm:"column:title"`
+	Description string `json:"description" gorm:"column:description"`
+	Status      string `json:"status" gorm:"column:status"`
 }

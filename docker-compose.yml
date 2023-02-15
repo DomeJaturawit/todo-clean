@@ -16,6 +16,8 @@ services:
     build:
       dockerfile: build/Dockerfile
     restart: "unless-stopped"
+    depends_on:
+      - database
     environment:
       - POSTGRES_HOST=localhost
       - POSTGRES_USER=pg
@@ -25,3 +27,7 @@ services:
       - POSTGRES_SSL=disable
     ports:
       - '8081:8080'
+networks:
+  default:
+    external:
+      name: todo-network

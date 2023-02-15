@@ -15,6 +15,16 @@ func (n *newUseCase) UpdateTodoUseCase(ctx context.Context, queryEntity domain.U
 		return nil, errorLib.WrapError(common.ErrDataNotFound.Error(), err)
 	}
 
+	if entity.Title == "" {
+		entity.Title = response[0].Title
+	}
+	if entity.Status == "" {
+		entity.Status = response[0].Status
+	}
+	if entity.Description == "" {
+		entity.Description = response[0].Description
+	}
+
 	dbTx, err := n.repo.Begin()
 	if err != nil {
 		return nil, errorLib.WrapError(common.ErrBeginTodo.Error(), err)
