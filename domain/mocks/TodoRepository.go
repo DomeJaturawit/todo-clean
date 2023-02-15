@@ -125,19 +125,15 @@ func (_m *TodoRepository) RollBack(tx *gorm.DB) error {
 }
 
 // UpdateTodoRepository provides a mock function with given fields: ctx, db, query, entity
-
 func (_m *TodoRepository) UpdateTodoRepository(ctx context.Context, db *gorm.DB, query domain.UpdateTodoQueryEntity, entity domain.UpdateTodoEntity) (*domain.UpdateTodoEntity, error) {
-
 	ret := _m.Called(ctx, db, query, entity)
 
 	var r0 *domain.UpdateTodoEntity
 	var r1 error
-
 	if rf, ok := ret.Get(0).(func(context.Context, *gorm.DB, domain.UpdateTodoQueryEntity, domain.UpdateTodoEntity) (*domain.UpdateTodoEntity, error)); ok {
 		return rf(ctx, db, query, entity)
 	}
 	if rf, ok := ret.Get(0).(func(context.Context, *gorm.DB, domain.UpdateTodoQueryEntity, domain.UpdateTodoEntity) *domain.UpdateTodoEntity); ok {
-
 		r0 = rf(ctx, db, query, entity)
 	} else {
 		if ret.Get(0) != nil {
@@ -145,9 +141,7 @@ func (_m *TodoRepository) UpdateTodoRepository(ctx context.Context, db *gorm.DB,
 		}
 	}
 
-
 	if rf, ok := ret.Get(1).(func(context.Context, *gorm.DB, domain.UpdateTodoQueryEntity, domain.UpdateTodoEntity) error); ok {
-
 		r1 = rf(ctx, db, query, entity)
 	} else {
 		r1 = ret.Error(1)

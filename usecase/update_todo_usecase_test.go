@@ -86,7 +86,7 @@ func (suite *TestUpdateUseCaseTestSuite) Test_Happy() {
 		On("UpdateTodoRepository", appCtx, tx, mock.AnythingOfType("domain.UpdateTodoQueryEntity"), mock.AnythingOfType("domain.UpdateTodoEntity")).Return(&mockEntity, nil).
 		On("Commit", tx).Return(nil)
 
-	result, err := suite.useCase.UpdateTodoUseCase(appCtx, suite.keyID, suite.updateEntityModel)
+	result, err := suite.useCase.UpdateTodoUseCase(appCtx, suite.keyID, &suite.updateEntityModel)
 
 	assert.Nil(suite.T(), err)
 	assert.NotNil(suite.T(), result)
@@ -106,7 +106,7 @@ func (suite *TestUpdateUseCaseTestSuite) Test_Update_Error() {
 		On("UpdateTodoRepository", appCtx, tx, mock.AnythingOfType("domain.UpdateTodoQueryEntity"), mock.AnythingOfType("domain.UpdateTodoEntity")).Return(nil, common.ErrUseCaseUpdateTodo).
 		On("Commit", tx).Return(nil)
 
-	result, err := suite.useCase.UpdateTodoUseCase(appCtx, suite.keyID, suite.updateEntityModel)
+	result, err := suite.useCase.UpdateTodoUseCase(appCtx, suite.keyID, &suite.updateEntityModel)
 
 	assert.Nil(suite.T(), result)
 	assert.Error(suite.T(), err)
@@ -121,7 +121,7 @@ func (suite *TestUpdateUseCaseTestSuite) Test_Update_Get_Data_Error() {
 	suite.repositoryMock.On("Begin").Return(tx, nil).
 		On("GetTodoRepository", context.Background(), &key).Return(nil, common.ErrDBGetTodo)
 
-	result, err := suite.useCase.UpdateTodoUseCase(appCtx, suite.keyID, suite.updateEntityModel)
+	result, err := suite.useCase.UpdateTodoUseCase(appCtx, suite.keyID, &suite.updateEntityModel)
 
 	assert.Nil(suite.T(), result)
 	assert.Error(suite.T(), err)

@@ -16,8 +16,9 @@ func NewHandler(restful *gin.Engine, usecase domain.TodoUseCase) {
 
 	api := restful.Group(common.APIGroup)
 	{
-		api.POST(common.APITodoCreatPath, restfulHandler.CreateTodoHandler)
-		api.GET(common.APITodoGetPath, restfulHandler.GetTodoDelivery)
-		api.GET(common.APIAllTodoGetPath, restfulHandler.GetTodoDelivery)
+		api.POST(common.APICreatTodoPath, restfulHandler.CreateTodoHandler)
+		api.GET(common.APIGetTodoPath, restfulHandler.GetTodoDelivery)
+		api.GET(common.APIGetAllTodoPath, restfulHandler.GetTodoDelivery)
+		api.PATCH(common.APIUpdateTodoPath, restfulHandler.UpdateTodoHandler)
 	}
 }
