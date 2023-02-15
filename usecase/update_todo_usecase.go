@@ -26,6 +26,9 @@ func (n *newUseCase) UpdateTodoUseCase(ctx context.Context, queryEntity domain.U
 		UpdatedAt:   time.Now(),
 	})
 	if err != nil {
+		if rollbackErr := n.repo.RollBack(dbTx); rollbackErr != nil {
+			return nil, errorLib.WrapError(common.ErrRollbackTodo.Error(), rollbackErr)
+		}
 		return nil, errorLib.WrapError(common.ErrUseCaseUpdateTodo.Error(), err)
 	}
 	err = n.repo.Commit(dbTx)
