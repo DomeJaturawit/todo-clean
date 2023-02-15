@@ -78,27 +78,28 @@ func (suite *TestGetDeliveryTestSuite) Test_Happy_With_No_Key() {
 
 func (suite *TestGetDeliveryTestSuite) Test_Error_With_Key() {
 	var err error
-	expectedError := errorLib.WrapError(common.ErrGetAllTodo.Error(), err)
-
-	suite.useCaseMock.On("GetTodoUseCase", mock.AnythingOfType("*gin.Context"), mock.AnythingOfType("*uuid.UUID")).
-		Return(nil, expectedError)
-
-	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, common.APIGroup+common.APIGetAllTodoPath, nil)
-
-	assert.NoError(suite.T(), err)
-	suite.ginEngine.ServeHTTP(suite.res, req)
-	assert.Equal(suite.T(), http.StatusInternalServerError, suite.res.Code)
-}
-
-func (suite *TestGetDeliveryTestSuite) Test_Error_With_No_Key() {
 	id := uuid.New().String()
-	var err error
 	expectedError := errorLib.WrapError(common.ErrGetAllTodo.Error(), err)
 
 	suite.useCaseMock.On("GetTodoUseCase", mock.AnythingOfType("*gin.Context"), mock.AnythingOfType("*uuid.UUID")).
 		Return(nil, expectedError)
 
 	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, common.APIGroup+common.APIGetAllTodoPath+id, nil)
+
+	assert.NoError(suite.T(), err)
+	suite.ginEngine.ServeHTTP(suite.res, req)
+	assert.Equal(suite.T(), http.StatusNotFound, suite.res.Code)
+}
+
+func (suite *TestGetDeliveryTestSuite) Test_Error_With_No_Key() {
+
+	var err error
+	expectedError := errorLib.WrapError(common.ErrGetAllTodo.Error(), err)
+
+	suite.useCaseMock.On("GetTodoUseCase", mock.AnythingOfType("*gin.Context"), mock.AnythingOfType("*uuid.UUID")).
+		Return(nil, expectedError)
+
+	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, common.APIGroup+common.APIGetAllTodoPath, nil)
 
 	assert.NoError(suite.T(), err)
 	suite.ginEngine.ServeHTTP(suite.res, req)

@@ -31,7 +31,7 @@ func (h newHandler) UpdateTodoHandler(ctx *gin.Context) {
 		return
 	}
 
-	queryEntity := domain.QueryUpdateTodoEntity{ID: id}
+	queryEntity := domain.UpdateTodoQueryEntity{ID: id}
 
 	entity := domain.UpdateTodoEntity{
 		Title:       request.Title,

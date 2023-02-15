@@ -69,15 +69,15 @@ func (_m *TodoUseCase) GetTodoUseCase(ctx context.Context, key *uuid.UUID) ([]do
 }
 
 // UpdateTodoUseCase provides a mock function with given fields: ctx, queryEntity, entity
-func (_m *TodoUseCase) UpdateTodoUseCase(ctx context.Context, queryEntity domain.UpdateTodoQueryEntity, entity domain.UpdateTodoEntity) (*domain.UpdateTodoEntity, error) {
+func (_m *TodoUseCase) UpdateTodoUseCase(ctx context.Context, queryEntity domain.UpdateTodoQueryEntity, entity *domain.UpdateTodoEntity) (*domain.UpdateTodoEntity, error) {
 	ret := _m.Called(ctx, queryEntity, entity)
 
 	var r0 *domain.UpdateTodoEntity
 	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, domain.UpdateTodoQueryEntity, domain.UpdateTodoEntity) (*domain.UpdateTodoEntity, error)); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, domain.UpdateTodoQueryEntity, *domain.UpdateTodoEntity) (*domain.UpdateTodoEntity, error)); ok {
 		return rf(ctx, queryEntity, entity)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, domain.UpdateTodoQueryEntity, domain.UpdateTodoEntity) *domain.UpdateTodoEntity); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, domain.UpdateTodoQueryEntity, *domain.UpdateTodoEntity) *domain.UpdateTodoEntity); ok {
 		r0 = rf(ctx, queryEntity, entity)
 	} else {
 		if ret.Get(0) != nil {
@@ -85,7 +85,7 @@ func (_m *TodoUseCase) UpdateTodoUseCase(ctx context.Context, queryEntity domain
 		}
 	}
 
-	if rf, ok := ret.Get(1).(func(context.Context, domain.UpdateTodoQueryEntity, domain.UpdateTodoEntity) error); ok {
+	if rf, ok := ret.Get(1).(func(context.Context, domain.UpdateTodoQueryEntity, *domain.UpdateTodoEntity) error); ok {
 		r1 = rf(ctx, queryEntity, entity)
 	} else {
 		r1 = ret.Error(1)

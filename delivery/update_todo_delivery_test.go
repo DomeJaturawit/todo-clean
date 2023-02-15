@@ -54,7 +54,7 @@ func (suite *TestUpdateDeliveryTestSuite) Test_Happy() {
 	id := uuid.New().String()
 	c, _ := gin.CreateTestContext(suite.res)
 	mockEntity := mockdata.UpdateTodoEntityMockData()
-	suite.useCaseMock.On("UpdateTodoUseCase", mock.AnythingOfType("*gin.Context"), mock.AnythingOfType("domain.QueryUpdateTodoEntity"), mock.AnythingOfType("domain.UpdateTodoEntity")).Return(&mockEntity, nil)
+	suite.useCaseMock.On("UpdateTodoUseCase", mock.AnythingOfType("*gin.Context"), mock.AnythingOfType("domain.UpdateTodoQueryEntity"), mock.AnythingOfType("*domain.UpdateTodoEntity")).Return(&mockEntity, nil)
 	reqBody, err := json.Marshal(mockdata.UpdateTodoDeliveryRequestMockData())
 	assert.NoError(suite.T(), err)
 
@@ -70,8 +70,8 @@ func (suite *TestUpdateDeliveryTestSuite) Test_Error_Bad_Request() {
 	var err error
 	id := uuid.New().String()
 
-	suite.useCaseMock.On("UpdateTodoUseCase", mock.AnythingOfType("*gin.Context"), mock.AnythingOfType("domain.QueryUpdateTodoEntity"),
-		mock.AnythingOfType("domain.UpdateTodoEntity")).Return(nil, common.ErrBadRequest)
+	suite.useCaseMock.On("UpdateTodoUseCase", mock.AnythingOfType("*gin.Context"), mock.AnythingOfType("domain.UpdateTodoQueryEntity"),
+		mock.AnythingOfType("*domain.UpdateTodoEntity")).Return(nil, common.ErrBadRequest)
 
 	c, _ := gin.CreateTestContext(suite.res)
 	reqBody, err := json.Marshal("")
@@ -92,8 +92,8 @@ func (suite *TestUpdateDeliveryTestSuite) Test_Error_Internal_Server() {
 	c, _ := gin.CreateTestContext(suite.res)
 	id := uuid.New().String()
 
-	suite.useCaseMock.On("UpdateTodoUseCase", mock.AnythingOfType("*gin.Context"), mock.AnythingOfType("domain.QueryUpdateTodoEntity"),
-		mock.AnythingOfType("domain.UpdateTodoEntity")).Return(nil, common.ErrInternal)
+	suite.useCaseMock.On("UpdateTodoUseCase", mock.AnythingOfType("*gin.Context"), mock.AnythingOfType("domain.UpdateTodoQueryEntity"),
+		mock.AnythingOfType("*domain.UpdateTodoEntity")).Return(nil, common.ErrInternal)
 
 	reqBody, err := json.Marshal(mockdata.CreateTodoDeliveryRequestMockData())
 	assert.NoError(suite.T(), err)
