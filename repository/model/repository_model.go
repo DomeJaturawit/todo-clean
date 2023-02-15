@@ -2,6 +2,7 @@ package model
 
 import (
 	"github.com/google/uuid"
+	"gorm.io/plugin/soft_delete"
 	"time"
 	"todo-clean/common"
 )
@@ -29,6 +30,14 @@ type TbTodoRepositoryGetModel struct {
 	CreatedAt   time.Time `json:"created_at"`
 }
 
+type TbTodoRepositoryDeleteModel struct {
+	ID          uuid.UUID             `json:"id" gorm:"primary_key"`
+	Title       string                `json:"title"`
+	Description string                `json:"description"`
+	Status      string                `json:"status"`
+	DeletedAt   soft_delete.DeletedAt `json:"deleted_at"`
+}
+
 func (TbTodoRepositoryCreateModel) TableName() string {
 	return common.TodoTable
 }
@@ -36,5 +45,9 @@ func (TbTodoRepositoryUpdateModel) TableName() string {
 	return common.TodoTable
 }
 func (TbTodoRepositoryGetModel) TableName() string {
+	return common.TodoTable
+}
+
+func (TbTodoRepositoryDeleteModel) TableName() string {
 	return common.TodoTable
 }

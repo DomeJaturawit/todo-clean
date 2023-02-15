@@ -9,6 +9,8 @@ const (
 	TodoCreatedAtCol   = "created_at"
 	TodoUpdatedAtCol   = "updated_at"
 
+	TodoDeletedAtCol = "deleted_at"
+
 	PostgresHost     = "POSTGRES_HOST"
 	PostgresUser     = "POSTGRES_USER"
 	PostgresPassWord = "POSTGRES_PASSWORD"

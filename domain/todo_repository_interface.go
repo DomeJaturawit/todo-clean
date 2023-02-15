@@ -11,7 +11,7 @@ type TodoRepository interface {
 	CreateTodoRepository(ctx context.Context, db *gorm.DB, todo CreateTodoEntity) (resp *CreateTodoEntity, err error)
 
 	UpdateTodoRepository(ctx context.Context, db *gorm.DB, query UpdateTodoQueryEntity, entity UpdateTodoEntity) (result *UpdateTodoEntity, err error)
-
+	DeleteTodoRepository(ctx context.Context, db *gorm.DB, queryEntity DeleteTodoQueryEntity) (result *DeleteTodoEntity, err error)
 	Begin() (tx *gorm.DB, err error)
 	RollBack(tx *gorm.DB) (err error)
 	Commit(tx *gorm.DB) (err error)

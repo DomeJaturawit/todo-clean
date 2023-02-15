@@ -84,6 +84,32 @@ func (_m *TodoRepository) CreateTodoRepository(ctx context.Context, db *gorm.DB,
 	return r0, r1
 }
 
+// DeleteTodoRepository provides a mock function with given fields: ctx, db, queryEntity
+func (_m *TodoRepository) DeleteTodoRepository(ctx context.Context, db *gorm.DB, queryEntity domain.DeleteTodoQueryEntity) (*domain.DeleteTodoEntity, error) {
+	ret := _m.Called(ctx, db, queryEntity)
+
+	var r0 *domain.DeleteTodoEntity
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, *gorm.DB, domain.DeleteTodoQueryEntity) (*domain.DeleteTodoEntity, error)); ok {
+		return rf(ctx, db, queryEntity)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, *gorm.DB, domain.DeleteTodoQueryEntity) *domain.DeleteTodoEntity); ok {
+		r0 = rf(ctx, db, queryEntity)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*domain.DeleteTodoEntity)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, *gorm.DB, domain.DeleteTodoQueryEntity) error); ok {
+		r1 = rf(ctx, db, queryEntity)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // GetTodoRepository provides a mock function with given fields: ctx, key
 func (_m *TodoRepository) GetTodoRepository(ctx context.Context, key *uuid.UUID) ([]domain.GetTodoEntity, error) {
 	ret := _m.Called(ctx, key)

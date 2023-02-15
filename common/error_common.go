@@ -6,9 +6,11 @@ var (
 	ErrDBCreateTodoRepo = errors.New("failed to create todo repository in database")
 	ErrDBCreateTodo     = errors.New("failed to create todo repository")
 	ErrDBUpdateTodo     = errors.New("failed to update todo repository")
-	ErrBeginTodo        = errors.New("failed to begin todo repository")
-	ErrCommitTodo       = errors.New("failed to commit create todo repository")
-	ErrRollbackTodo     = errors.New("failed to roll back create todo repository")
+
+	ErrDBDeleteTodo = errors.New("failed to delete todo repository")
+	ErrBeginTodo    = errors.New("failed to begin todo repository")
+	ErrCommitTodo   = errors.New("failed to commit create todo repository")
+	ErrRollbackTodo = errors.New("failed to roll back create todo repository")
 
 	ErrDBGetTodo = errors.New("failed to get todo database repository")
 

@@ -2,6 +2,7 @@ package domain
 
 import (
 	"github.com/google/uuid"
+	"gorm.io/plugin/soft_delete"
 	"time"
 )
 
@@ -50,12 +51,25 @@ func NewUpdateTodoEntity(title string, description string, status string, update
 	return UpdateTodoEntity{Title: title, Description: description, Status: status, UpdatedAt: updatedAt}
 }
 
-
 type UpdateTodoQueryEntity struct {
 	ID uuid.UUID `json:"id" gorm:"primary_key"`
 }
 
 func NewQueryUpdateTodoEntity(ID uuid.UUID) UpdateTodoQueryEntity {
 	return UpdateTodoQueryEntity{ID: ID}
+}
 
+type DeleteTodoQueryEntity struct {
+	ID uuid.UUID `json:"id" gorm:"primary_key"`
+}
+
+func NewDeleteTodoQueryEntity(ID uuid.UUID) DeleteTodoQueryEntity {
+	return DeleteTodoQueryEntity{ID: ID}
+}
+
+type DeleteTodoEntity struct {
+	Title       string                `json:"title" gorm:"column:title"`
+	Description string                `json:"description" gorm:"column:description"`
+	Status      string                `json:"status" gorm:"column:status"`
+	DeletedAt   soft_delete.DeletedAt `json:"deleted_at" gorm:"column:deleted_at"`
 }
