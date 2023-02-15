@@ -31,7 +31,7 @@ type TestUpdateUseCaseTestSuite struct {
 
 	repositoryMock    *mocks.TodoRepository
 	useCase           domain.TodoUseCase
-	keyID             domain.QueryUpdateTodoEntity
+	keyID             domain.UpdateTodoQueryEntity
 	updateEntityModel domain.UpdateTodoEntity
 	mockDataModel     []domain.GetTodoEntity
 }
@@ -83,7 +83,7 @@ func (suite *TestUpdateUseCaseTestSuite) Test_Happy() {
 
 	suite.repositoryMock.On("Begin").Return(tx, nil).
 		On("GetTodoRepository", context.Background(), &key).Return(suite.mockDataModel, nil).
-		On("UpdateTodoRepository", appCtx, tx, mock.AnythingOfType("domain.QueryUpdateTodoEntity"), mock.AnythingOfType("domain.UpdateTodoEntity")).Return(&mockEntity, nil).
+		On("UpdateTodoRepository", appCtx, tx, mock.AnythingOfType("domain.UpdateTodoQueryEntity"), mock.AnythingOfType("domain.UpdateTodoEntity")).Return(&mockEntity, nil).
 		On("Commit", tx).Return(nil)
 
 	result, err := suite.useCase.UpdateTodoUseCase(appCtx, suite.keyID, suite.updateEntityModel)
@@ -103,7 +103,7 @@ func (suite *TestUpdateUseCaseTestSuite) Test_Update_Error() {
 
 	suite.repositoryMock.On("Begin").Return(tx, nil).
 		On("GetTodoRepository", context.Background(), &key).Return(suite.mockDataModel, nil).
-		On("UpdateTodoRepository", appCtx, tx, mock.AnythingOfType("domain.QueryUpdateTodoEntity"), mock.AnythingOfType("domain.UpdateTodoEntity")).Return(nil, common.ErrUseCaseUpdateTodo).
+		On("UpdateTodoRepository", appCtx, tx, mock.AnythingOfType("domain.UpdateTodoQueryEntity"), mock.AnythingOfType("domain.UpdateTodoEntity")).Return(nil, common.ErrUseCaseUpdateTodo).
 		On("Commit", tx).Return(nil)
 
 	result, err := suite.useCase.UpdateTodoUseCase(appCtx, suite.keyID, suite.updateEntityModel)
