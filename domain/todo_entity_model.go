@@ -50,10 +50,12 @@ func NewUpdateTodoEntity(title string, description string, status string, update
 	return UpdateTodoEntity{Title: title, Description: description, Status: status, UpdatedAt: updatedAt}
 }
 
+
 type UpdateTodoQueryEntity struct {
 	ID uuid.UUID `json:"id" gorm:"primary_key"`
 }
 
 func NewQueryUpdateTodoEntity(ID uuid.UUID) UpdateTodoQueryEntity {
 	return UpdateTodoQueryEntity{ID: ID}
+
 }

@@ -36,8 +36,10 @@ func UpdateTodoEntityMockData() domain.UpdateTodoEntity {
 	)
 }
 
+
 func QueryUpdateTodoEntityMockData() domain.UpdateTodoQueryEntity {
 	return domain.NewQueryUpdateTodoEntity(
 		mockID,
 	)
 }
+
