@@ -2,32 +2,41 @@ package main
 
 import (
 	"fmt"
+	"google.golang.org/grpc"
 	"log"
+	"net"
 	"todo-clean/database"
 	"todo-clean/delivery"
 	"todo-clean/repository"
 	"todo-clean/usecase"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
 
 	dbConn, err := database.ConnectDB()
-	
+
 	if err != nil {
 		log.Panicln("failed to connect database", err)
 	} else {
 		fmt.Println("Connect ok", dbConn)
 	}
-	engine := gin.New()
+	//engine := gin.New()
 
 	repo := repository.NewRepository(dbConn)
 	use := usecase.NewUseCase(repo)
 
-	delivery.NewHandler(engine, use)
+	lis, err := net.Listen("tcp", "localhost:9000")
 
-	err = engine.Run("localhost:8080")
+	server := grpc.NewServer()
+	delivery.NewServerGrpc(server, use)
+
+	if err = server.Serve(lis); err != nil {
+		panic(err)
+	}
+	fmt.Println("started")
+
+	//err = engine.Run("localhost:8080")
+
 	if err != nil {
 		log.Fatalln("failed to run", err)
 	}

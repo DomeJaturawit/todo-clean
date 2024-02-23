@@ -1,6 +1,9 @@
 package model
 
-import "github.com/google/uuid"
+import (
+	"github.com/google/uuid"
+	"time"
+)
 
 type CreateTodoDeliveryRequest struct {
 	Title       string `json:"title" validate:"required"`
@@ -12,6 +15,14 @@ type UpdateTodoDeliveryRequest struct {
 	Title       string `json:"title" validate:"required"`
 	Description string `json:"description" validate:"required"`
 	Status      string `json:"status" validate:"required"`
+}
+
+type GetTodoDeliveryResponse struct {
+	ID          uuid.UUID `json:"id"`
+	Title       string    `json:"title" validate:"required"`
+	Description string    `json:"description" validate:"required"`
+	Status      string    `json:"status" validate:"required"`
+	CreatedAt   time.Time `json:"created_at" gorm:"column:created_at"`
 }
 
 func NewUpdateTodoDeliveryRequest(title string, description string, status string) *UpdateTodoDeliveryRequest {

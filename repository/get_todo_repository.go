@@ -3,7 +3,6 @@ package repository
 import (
 	"context"
 	"fmt"
-	"github.com/google/uuid"
 	"github.com/jinzhu/copier"
 	"gorm.io/gorm"
 	"todo-clean/common"
@@ -12,10 +11,10 @@ import (
 	"todo-clean/repository/model"
 )
 
-func (repo newRepo) GetTodoRepository(ctx context.Context, key *uuid.UUID) (result []domain.GetTodoEntity, err error) {
+func (repo newRepo) GetTodoRepository(ctx context.Context, key string) (result []domain.GetTodoEntity, err error) {
 	var todos []model.TbTodoRepositoryGetModel
 	db := repo.db
-	if key != nil {
+	if key != "" {
 		db = getTodoQueryCondition(db, key)
 		if err = db.WithContext(ctx).Find(&todos).Error; err != nil {
 
@@ -42,7 +41,7 @@ func (repo newRepo) GetTodoRepository(ctx context.Context, key *uuid.UUID) (resu
 	return result, nil
 }
 
-func getTodoQueryCondition(db *gorm.DB, key *uuid.UUID) *gorm.DB {
+func getTodoQueryCondition(db *gorm.DB, key string) *gorm.DB {
 	db = db.Where(fmt.Sprintf(`%s = ?`, common.TodoIDCol), key)
 	return db
 }
